@@ -38,11 +38,12 @@ a:hover {
 .column3 {
 	padding: 15px;
 	float: left;
-	width: calc(32% - 15px);
+	width: calc(33.33% - 30px);
 	background: #4286f4;
 	font-family: proxima-nova-thin;
 	font-size: 20px;
-	height:270px;
+	height: 270px;
+	margin: auto;
 }
 /* Clear floats after the columns */
 .row:after {
@@ -52,13 +53,19 @@ a:hover {
 }
 
 
-.section {
+.header {
 	max-width: 100%;
 	margin 0 auto;
-	background: #999999;
+	/*background: #0085bd;*/
 	font-size: 30px;
 	padding: 25px;
 	font-family: ostrichsans-black;
+
+	position: absolute;
+	z-index: 10;
+	top: 0px;
+	left: 240px;
+
 }
 
 .container {
@@ -70,8 +77,16 @@ a:hover {
 	font-family: proxima-nova-thin;
 }
 
+
+
+.parallaxheader {
+	min-height: 500px;
+	background: transparent;
+	width: 100%; 
+}
+
 .parallax {
-	min-height: 200px;
+	min-height: 400px;
 	background: transparent;
 	width: 100%; 
 }
