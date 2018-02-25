@@ -36,18 +36,23 @@ a:hover {
 
 }
 
+.columnheader {
+	font-size: 50px;
+	font-family: ostrichsans-bold;
+}
+
 .column2 {
 	float: left;
 	width: 50%;
 }
-.column3 {
+.column4 {
 	padding: 15px;
 	float: left;
-	width: calc(33.33% - 30px);
+	width: calc(25% - 30px);
 	background: #4286f4;
 	font-family: proxima-nova-thin;
 	font-size: 20px;
-	height: 270px;
+	height: 340px;
 	margin: auto;
 	color: white;
 }
@@ -65,13 +70,11 @@ a:hover {
 	/*background: #0085bd;*/
 	font-size: 50px;
 	padding: 25px;
-	font-family: ostrichsans-bold;
+	font-family: ostrichsans-black;
 
 	position: relative;
 	z-index: 2;
 	color: #0085bd;
-	-webkit-text-stroke-width: 1px;
-	-webkit-text-stroke-color: white;
 
 }
 
