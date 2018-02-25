@@ -42,38 +42,57 @@ a:hover {
 }
 
 .column2 {
-	float: left;
-	width: 50%;
-}
-.column4 {
-	flex: 1;
 	padding: 15px;
-
-	float: left;
-	width: calc(25% - 30px);
+	float: none;
+	width: 50%;
 
 	background: #4286f4;
 	font-family: proxima-nova-thin;
 	font-size: 20px;
 	color: white;
+	line-height: 1.5;
+
+	display: table-cell;
+	margin: auto;
+
+	
+}
+
+.column4 {
+	padding: 15px;
+	float: none;
+	width: 25%;
+
+	background: #4286f4;
+	font-family: proxima-nova-thin;
+	font-size: 20px;
+	color: white;
+	line-height: 1.5;
 
 	display: table-cell;
 	margin: auto;
 }
 /* Clear floats after the columns */
 .row:after {
-	display: flex;
-	width: 100%;
+	display: table; /* Make the container element behave like a table */
+	width: 100%; /* Set full-width to expand the whole page */
 
 	content: "";
 	clear: both;
 }
 
 @media only screen and (max-width: 600px) {
-    .column4 { 
-        display: block;
-        width: 100%;
-    }
+	.column4 { 
+		display: block;
+		width: 100%;
+	}
+}
+
+@media only screen and (max-width: 600px) {
+	.column2 { 
+		display: block;
+		width: 100%;
+	}
 }
 
 
@@ -90,6 +109,9 @@ a:hover {
 	position: relative;
 	z-index: 2;
 	color: #0085bd;
+
+	display: table-cell;
+	vertical-align: middle;
 
 }
 
@@ -114,4 +136,5 @@ a:hover {
 	min-height: 400px;
 	background: transparent;
 	width: 100%; 
+	display: table;
 }
