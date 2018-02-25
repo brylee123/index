@@ -46,22 +46,37 @@ a:hover {
 	width: 50%;
 }
 .column4 {
+	flex: 1;
 	padding: 15px;
+
 	float: left;
 	width: calc(25% - 30px);
+
 	background: #4286f4;
 	font-family: proxima-nova-thin;
 	font-size: 20px;
-	height: 340px;
-	margin: auto;
 	color: white;
+
+	display: table-cell;
+	margin: auto;
 }
 /* Clear floats after the columns */
 .row:after {
+	display: flex;
+	width: 100%;
+
 	content: "";
-	display: table;
 	clear: both;
 }
+
+@media only screen and (max-width: 600px) {
+    .column4 { 
+        display: block;
+        width: 100%;
+    }
+}
+
+
 
 
 .header {
