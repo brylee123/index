@@ -39,6 +39,7 @@ a:hover {
 .columnheader {
 	font-size: 50px;
 	font-family: ostrichsans-bold;
+	line-height: 1.2;
 }
 
 .column2 {
@@ -46,16 +47,13 @@ a:hover {
 	float: none;
 	width: 50%;
 
-	background: #4286f4;
 	font-family: proxima-nova-thin;
-	font-size: 20px;
+	font-size: 15px;
 	color: white;
 	line-height: 1.5;
 
 	display: table-cell;
-	margin: auto;
-
-	
+	margin: auto;	
 }
 
 .column4 {
@@ -63,15 +61,44 @@ a:hover {
 	float: none;
 	width: 25%;
 
-	background: #4286f4;
 	font-family: proxima-nova-thin;
-	font-size: 20px;
+	font-size: 15px;
 	color: white;
 	line-height: 1.5;
 
 	display: table-cell;
 	margin: auto;
 }
+.column1_3 {
+	padding: 15px;
+	float: left;
+	width: 30%;
+
+	font-family: proxima-nova-thin;
+	font-size: 15px;
+	color: white;
+	line-height: 1.5;
+
+	display: table-cell;
+	margin: auto;	
+}
+
+.column2_3 {
+	padding: 15px;
+	float: right;
+	width: 60%;
+
+	font-family: proxima-nova-thin;
+	font-size: 15px;
+	color: white;
+	line-height: 1.5;
+
+	display: table-cell;
+	margin: auto;	
+}
+
+
+
 /* Clear floats after the columns */
 .row:after {
 	display: table; /* Make the container element behave like a table */
