@@ -18,9 +18,11 @@
 	src: url(fonts/Proxima-Nova-Thin.ttf);
 }
 
+
 h5 {
-	text-shadow: 1px 1px #000000;
+	text-shadow: 2px 2px #000000;
 }
+
 
 a:link {
 	color: gray;
@@ -74,8 +76,8 @@ a:hover {
 }
 .column1_3 {
 	padding: 15px;
-	float: left;
-	width: 30%;
+	float: none;
+	width: 31%;
 
 	font-family: proxima-nova-thin;
 	font-size: 15px;
@@ -83,13 +85,13 @@ a:hover {
 	line-height: 1.5;
 
 	display: table-cell;
-	margin: auto;	
+	margin: auto;
 }
 
 .column2_3 {
 	padding: 15px;
-	float: right;
-	width: 60%;
+	float: none;
+	width: 63%;
 
 	font-family: proxima-nova-thin;
 	font-size: 15px;
@@ -97,10 +99,8 @@ a:hover {
 	line-height: 1.5;
 
 	display: table-cell;
-	margin: auto;	
+	margin: auto;
 }
-
-
 
 /* Clear floats after the columns */
 .row:after {
@@ -124,9 +124,6 @@ a:hover {
 		width: 100%;
 	}
 }
-
-
-
 
 .header {
 	max-width: 100%;
@@ -153,8 +150,6 @@ a:hover {
 	padding: 25px;
 	font-family: proxima-nova-thin;
 }
-
-
 
 .parallaxheader {
 	min-height: 500px;
