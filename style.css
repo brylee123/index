@@ -74,24 +74,11 @@ a:hover {
 	display: table-cell;
 	margin: auto;
 }
-.column1_3 {
-	padding: 15px;
-	float: none;
-	width: 31%;
-
-	font-family: proxima-nova-thin;
-	font-size: 15px;
-	color: white;
-	line-height: 1.5;
-
-	display: table-cell;
-	margin: auto;
-}
-
 .column2_3 {
 	padding: 15px;
 	float: none;
-	width: 63%;
+	width: 66.67%;
+	/*width: 33.33%;*/
 
 	font-family: proxima-nova-thin;
 	font-size: 15px;
@@ -100,12 +87,32 @@ a:hover {
 
 	display: table-cell;
 	margin: auto;
+
+	/*outline: 5px dotted green;*/
+}
+
+.column1_3 {
+	padding: 15px;
+	float: none;
+	width: 33.33%;
+	/*width: 66.67%;*/
+
+	font-family: proxima-nova-thin;
+	font-size: 15px;
+	color: white;
+	line-height: 1.5;
+
+	display: table-cell;
+	margin: auto;
+
+	/*outline: 5px dotted green;*/
 }
 
 /* Clear floats after the columns */
 .row:after {
 	display: table; /* Make the container element behave like a table */
 	width: 100%; /* Set full-width to expand the whole page */
+	max-width: 100%;
 
 	content: "";
 	clear: both;
@@ -128,7 +135,7 @@ a:hover {
 .header {
 	max-width: 100%;
 	margin 0 auto;
-	/*background: #0085bd;*/
+
 	font-size: 50px;
 	padding: 25px;
 	font-family: ostrichsans-black;
