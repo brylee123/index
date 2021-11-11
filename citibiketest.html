@@ -4,6 +4,7 @@
 <input type="text" id="lon" value="Longitude">
 <br>
 <input type="button" value="Load Statistics" onclick="loadCitiBikeData()">
+<input type="number" id="recordLength" pattern="^[0-9]*$" />
 
 <table id="stationLists">
 	<tr>
@@ -115,7 +116,7 @@
 				stations[station_id].lon = stationlist_info[i].lon;
 
 				stations[station_id].num_bikes_available = stationlist_stat[i].num_bikes_available;
-				stations[station_id].num_bikes_disabled  = stationlist_stat[i].num_bikes_disabled;
+				stations[station_id].num_bikes_disabled	= stationlist_stat[i].num_bikes_disabled;
 
 				stations[station_id].num_ebikes_available = stationlist_stat[i].num_ebikes_available;
 
@@ -132,13 +133,17 @@
 			}
 
 			var orderedStations = closestStation(stations);
-
+			var stationsAvailRent = closestStationsAvailRent(orderedStations);
+			var stationsAvailReturn = closestStationsAvailReturn(orderByStation);
+			var stationsEBikeVoucher = closestStationsEBikeVoucher(orderByStation);
+			fillTable(orderedStations, stationsAvailRent, stationsAvailReturn, stationsEBikeVoucher);
 
 		}
 		
 		var gbfsStationStatusURL = "http://gbfs.citibikenyc.com/gbfs/en/station_status.json";
-		var gbfsStationInfoURL   = "https://gbfs.citibikenyc.com/gbfs/es/station_information.json";
+		var gbfsStationInfoURL	 = "https://gbfs.citibikenyc.com/gbfs/es/station_information.json";
 		parse(gbfsStationStatusURL, gbfsStationInfoURL);
+
 	}
 
 	function distanceToStation(slat, slon) {
@@ -168,7 +173,7 @@
 			dkm = distanceToStation(slat, slon);
 
 			if (dkm in orderStations) {
-				orderStations[dkm] =  orderStations[dkm].push(key);
+				orderStations[dkm] =	orderStations[dkm].push(key);
 			} else {
 				orderStations[dkm] = [key];
 			}
@@ -224,7 +229,37 @@
 	}
 
 	function fillTable(station, divEle) {
+		var l = parseInt(document.getElementById("recordLength").value);
 
+		var table = document.getElementById("stationLists");
+
+		for (var i = 0; i < l; i++) {
+			var row = table.insertRow(i+1);
+			var closestStationCell = row.insertCell(0);
+			var closestAvailBikes  = row.insertCell(1);
+			var closestAvailDocks  = row.insertCell(2);
+			var closestFreeEBike   = row.insertCell(3);
+
+			closestStationCell.innerHTML = "123";
+			closestAvailBikes .innerHTML = "123";
+			closestAvailDocks .innerHTML = "123";
+			closestFreeEBike  .innerHTML = "123";
+		}
+		
+
+	}
+
+	function checkInputInteger(field) {
+		var value = Number(field.value);
+		if (Math.floor(value) == value) {
+			loadCitiBikeData();
+			return;
+		} else {
+			alert("This field must be an integer. Setting to default value.1")
+			field.value = 5;
+			field.select();
+			return;
+		}
 	}
 
 </script>
