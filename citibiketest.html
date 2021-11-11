@@ -1,67 +1,21 @@
-<input type="button" value="Get Location" onclick="main()">
-<input type="hidden" id="nudge">
+<input type="button" value="Get Location" onclick="getLocation()">
 
-<input type="text" id="startLat" value="lat">
-<input type="text" id="startLon" value="lon">
+<input type="text" id="lat" value="Latitude">
+<input type="text" id="lon" value="Longitude">
+<br>
+<input type="button" value="Load Statistics" onclick="loadCitiBikeData()">
 
-<script>
-	function main() {
-		function loadJson(request_url) {
-			console.log("loadingjson")
-			return new Promise(function(resolve, reject) {
-				var request = new XMLHttpRequest();
-				request.open("GET", request_url, true);
-				request.onload = function() {
-					if (request.status === 200) {
-						console.log("Success!")
-						resolve(request.responseText);
-					} else {
-						console.log("Error: Didn't load successfully")
-						reject(Error('Didn\'t load successfully; error code:' + request.statusText));
-					}
-				};
-				request.onerror = function() {
-					console.log("Network Error.")
-					reject(Error('There was a network error.'));
-				};
-				request.send();
-				console.log("Sent")
-			});
-		}
-
-		function parse(gbfsStationStatusURL, gbfsStationInfoURL) {
-			Promise.all([loadJson(gbfsStationStatusURL), loadJson(gbfsStationInfoURL)]).then(function(responses) {
-				// responses contains the parsed JSON objects in the order of requests
-				toHierarchy(responses[0], responses[1]);
-			}).catch(function(error) {
-				// do error processing here if any promise was rejected
-				console.log("Promise was rejected")
-			});
-		}
-
-		function toHierarchy(gbfsStationStatusURL, gbfsStationInfoURL) {
-			// do the combination here
-			console.log(gbfsStationStatusURL.length);
-			console.log(gbfsStationInfoURL.length);
-		}
-		
-		var gbfsStationStatusURL = "http://gbfs.citibikenyc.com/gbfs/en/station_status.json";
-		var gbfsStationInfoURL = "https://gbfs.citibikenyc.com/gbfs/es/station_information.json";
-		parse(gbfsStationStatusURL, gbfsStationInfoURL)
-	}
-
-</script>
+<table id="stationLists">
+	<tr>
+		<th> Closest Stations </th>
+		<th> Closest Available Bikes </th>
+		<th> Closest Available Docks </th>
+		<th> Closest Free EBike Vouchers </th>
+	</tr>
+</table>
 
 <script>
-	function main1() {
-		getLocation();
-
-		var gbfsStationStatusURL = "http://gbfs.citibikenyc.com/gbfs/en/station_status.json";
-		var gbfsStationInfoURL = "https://gbfs.citibikenyc.com/gbfs/es/station_information.json";
-
-		var stationInformation = getHTML(gbfsStationStatusURL);
-		console.log("GETHTML:" + stationInformation)
-	}
+	var clat, clon;
 	function getLocation() {
 		// check for Geolocation support
 		if (navigator.geolocation) {
@@ -76,8 +30,11 @@
 			// Do magic with location
 			startPos = position;
 			console.log(startPos.coords.latitude.toString()+","+startPos.coords.longitude.toString())
-			document.getElementById('startLat').value = startPos.coords.latitude;
-			document.getElementById('startLon').value = startPos.coords.longitude;
+			document.getElementById('lat').value = startPos.coords.latitude;
+			document.getElementById('lon').value = startPos.coords.longitude;
+
+			clat = startPos.coords.latitude;
+			clon = startPos.coords.longitude;
 		};
 		var geoError = function(error) {
 			switch(error.code) {
@@ -96,36 +53,178 @@
 
 		navigator.geolocation.getCurrentPosition(geoSuccess, geoError, options);
 	}
+	var stationInfoJSON, stationStatJSON;
+	var stations = {};
 
-	function getHTML(url) {
-		var request_url = url;
-		var MyRequest = new XMLHttpRequest(); // a new request
-		MyRequest.open("GET", request_url, true);
-		MyRequest.onload = function (e) {
-			if (MyRequest.readyState === 4) {
-				if (MyRequest.status === 200) {
-					console.log("Success!");
-					return MyRequest.responseText;
-				} else {
-					console.error(MyRequest.statusText);
-				}
+	function loadCitiBikeData() {
+		function loadJson(request_url) {
+			return new Promise(function(resolve, reject) {
+				var request = new XMLHttpRequest();
+				request.open("GET", request_url, true);
+				request.onload = function() {
+					if (request.status === 200) {
+						console.log("Success!")
+						resolve(request.responseText);
+					} else {
+						console.log("Error: Didn't load successfully")
+						reject(Error('Didn\'t load successfully; error code:' + request.statusText));
+					}
+				};
+				request.onerror = function() {
+					console.log("Network Error.")
+					reject(Error('There was a network error.'));
+				};
+				request.send();
+			});
+		}
+
+		function parse(gbfsStationStatusURL, gbfsStationInfoURL) {
+			Promise.all([loadJson(gbfsStationStatusURL), loadJson(gbfsStationInfoURL)]).then(function(responses) {
+				// responses contains the parsed JSON objects in the order of requests
+				mergeJSON(responses[0], responses[1]);
+			}).catch(function(error) {
+				// do error processing here if any promise was rejected
+				console.log("Promise was rejected")
+			});
+		}
+
+		function mergeJSON(gbfsStationStatus, gbfsStationInfo) {
+			// do the combination here
+			console.log("station_status.json Size: "+gbfsStationStatus.length);
+			console.log("station_information.json Size: "+gbfsStationInfo.length);
+
+			var stations = {};
+			var stationlist_info = JSON.parse(gbfsStationInfo).data.stations;
+			var stationlist_stat = JSON.parse(gbfsStationStatus).data.stations;
+			var stationlength = stationlist_info.length;
+
+			var userLat = document.getElementById('lat').value;
+			var userLon = document.getElementById('lon').value;
+
+			for (var i = 0; i < stationlength; i++) {
+				var station_id = stationlist_info[i].station_id;
+				
+				var num_docks_available = stationlist_stat[i].num_docks_available;
+
+				var last_reported = stationlist_stat[i].last_reported;
+
+				stations[station_id] = {};
+
+				stations[station_id].name = stationlist_info[i].name;
+				stations[station_id].lat = stationlist_info[i].lat;
+				stations[station_id].lon = stationlist_info[i].lon;
+
+				stations[station_id].num_bikes_available = stationlist_stat[i].num_bikes_available;
+				stations[station_id].num_bikes_disabled  = stationlist_stat[i].num_bikes_disabled;
+
+				stations[station_id].num_ebikes_available = stationlist_stat[i].num_ebikes_available;
+
+				stations[station_id].num_docks_available = stationlist_stat[i].num_docks_available;
+				stations[station_id].num_docks_disabled = stationlist_stat[i].num_docks_disabled;
+
+				stations[station_id].valet = ("valet" in stationlist_stat[i]) ? true: false;
+
+				stations[station_id].electric_bike_surcharge_waiver = station_list_info[i].electric_bike_surcharge_waiver;
+
+				stations[station_id].last_reported = last_reported;
+
+				stations[station_id].distance_from_user = distanceToStation(stations[station_id].lat, stations[station_id].lon, userLat, userLon);
 			}
-		};
-		MyRequest.onerror = function (e) {
-			console.error(MyRequest.statusText);
-		};
-		MyRequest.send(null);
+
+			var orderedStations = closestStation(stations);
+
+
+		}
+		
+		var gbfsStationStatusURL = "http://gbfs.citibikenyc.com/gbfs/en/station_status.json";
+		var gbfsStationInfoURL   = "https://gbfs.citibikenyc.com/gbfs/es/station_information.json";
+		parse(gbfsStationStatusURL, gbfsStationInfoURL);
 	}
 
-	var stationInfo = "";
-	var stationStat = "";
-	function stationInformation(response) {
-		stationInfo = JSON.stringify(JSON.parse(response));
-		var weather_response = getHTML(weather_url, "weather");
+	function distanceToStation(slat, slon) {
+
+		var lat1radians = parseFloat(slat)*(Math.PI/180);
+		var lat2radians = parseFloat(clat)*(Math.PI/180);
+		var deltalat = (parseFloat(clat)-parseFloat(slat))*(Math.PI/180);
+		var deltalon = (parseFloat(clon)-parseFloat(slon))*(Math.PI/180);
+		var a = Math.pow(Math.sin(deltalat/2),2) + Math.cos(lat1radians) * Math.cos(lat2radians) * Math.pow(Math.sin(deltalon/2),2);
+		var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+		var dkm = 6371*c;
+
+		return dkm
 	}
 
-	function stationStatus(response) {
-		var loc_key = JSON.parse(response).Key;
-		var weather_response = getHTML(weather_url, "weather");
+	function closestStations(stations) {
+
+		var closest_station = "";
+		var closest_distance = 99999999;
+
+		var orderStations = {};
+
+		Object.keys(stations).forEach(function(key) {
+			var slat = stations[key]["lat"];
+			var slon = stations[key]["lon"];
+
+			dkm = distanceToStation(slat, slon);
+
+			if (dkm in orderStations) {
+				orderStations[dkm] =  orderStations[dkm].push(key);
+			} else {
+				orderStations[dkm] = [key];
+			}
+		})
+
+		var orderByDistance = Array.from(Object.keys(orderStations)).sort();
+		var orderByStation = [];
+		for (var i = 0; i < orderByDistance.length; i++) {
+			dkm = orderByDistance[i];
+			while (orderStations[dkm].length > 0) {
+				orderByStation.push(orderStations[dkm].pop());
+			}
+		}
+
+		return orderByStation;
 	}
+
+	function closestStationsAvailRent(orderByStation) {
+		stationsAvailRent = JSON.parse(JSON.stringify(orderByStation));
+		for (var i = orderByStation.length; i > 0; i--) {
+			var station_id = orderByStation[i];
+			
+			if ((stations[station_id].num_bikes_available == 0) && (stations[station_id].num_ebikes_available == 0)) {
+				stationsAvailRent.pop(i);
+			}
+		}
+		return stationsAvailRent;
+	}
+
+	function closestStationsAvailReturn(orderByStation) {
+		stationsAvailReturn = JSON.parse(JSON.stringify(orderByStation));
+		for (var i = orderByStation.length; i > 0; i--) {
+			var station_id = orderByStation[i];
+			
+			if (stations[station_id].num_docks_available > 0) {
+				stationsAvailReturn.pop(i);
+			}
+		}
+		return stationsAvailReturn;
+
+	}
+
+	function closestStationsEBikeVoucher(orderByStation) {
+		stationsEBikeVoucher = JSON.parse(JSON.stringify(orderByStation));
+		for (var i = orderByStation.length; i > 0; i--) {
+			var station_id = orderByStation[i];
+			
+			if (stations[station_id].electric_bike_surcharge_waiver == false) {
+				stationsEBikeVoucher.pop(i);
+			}
+		}
+		return stationsEBikeVoucher;
+	}
+
+	function fillTable(station, divEle) {
+
+	}
+
 </script>
