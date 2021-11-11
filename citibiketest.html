@@ -1,0 +1,131 @@
+<input type="button" value="Get Location" onclick="main()">
+<input type="hidden" id="nudge">
+
+<input type="text" id="startLat" value="lat">
+<input type="text" id="startLon" value="lon">
+
+<script>
+	function main() {
+		function loadJson(request_url) {
+			console.log("loadingjson")
+			return new Promise(function(resolve, reject) {
+				var request = new XMLHttpRequest();
+				request.open("GET", request_url, true);
+				request.onload = function() {
+					if (request.status === 200) {
+						console.log("Success!")
+						resolve(request.responseText);
+					} else {
+						console.log("Error: Didn't load successfully")
+						reject(Error('Didn\'t load successfully; error code:' + request.statusText));
+					}
+				};
+				request.onerror = function() {
+					console.log("Network Error.")
+					reject(Error('There was a network error.'));
+				};
+				request.send();
+				console.log("Sent")
+			});
+		}
+
+		function parse(gbfsStationStatusURL, gbfsStationInfoURL) {
+			Promise.all([loadJson(gbfsStationStatusURL), loadJson(gbfsStationInfoURL)]).then(function(responses) {
+				// responses contains the parsed JSON objects in the order of requests
+				toHierarchy(responses[0], responses[1]);
+			}).catch(function(error) {
+				// do error processing here if any promise was rejected
+				console.log("Promise was rejected")
+			});
+		}
+
+		function toHierarchy(gbfsStationStatusURL, gbfsStationInfoURL) {
+			// do the combination here
+			console.log(gbfsStationStatusURL.length);
+			console.log(gbfsStationInfoURL.length);
+		}
+		
+		var gbfsStationStatusURL = "http://gbfs.citibikenyc.com/gbfs/en/station_status.json";
+		var gbfsStationInfoURL = "https://gbfs.citibikenyc.com/gbfs/es/station_information.json";
+		parse(gbfsStationStatusURL, gbfsStationInfoURL)
+	}
+
+</script>
+
+<script>
+	function main1() {
+		getLocation();
+
+		var gbfsStationStatusURL = "http://gbfs.citibikenyc.com/gbfs/en/station_status.json";
+		var gbfsStationInfoURL = "https://gbfs.citibikenyc.com/gbfs/es/station_information.json";
+
+		var stationInformation = getHTML(gbfsStationStatusURL);
+		console.log("GETHTML:" + stationInformation)
+	}
+	function getLocation() {
+		// check for Geolocation support
+		if (navigator.geolocation) {
+			console.log('Geolocation is supported!');
+		}
+		else {
+			console.log('Geolocation is not supported for this Browser/OS.');
+		}
+
+		var startPos;
+		var geoSuccess = function(position) {
+			// Do magic with location
+			startPos = position;
+			console.log(startPos.coords.latitude.toString()+","+startPos.coords.longitude.toString())
+			document.getElementById('startLat').value = startPos.coords.latitude;
+			document.getElementById('startLon').value = startPos.coords.longitude;
+		};
+		var geoError = function(error) {
+			switch(error.code) {
+				case error.TIMEOUT:
+					// The user didn't accept the callout
+					showNudgeBanner();
+					break;
+			}
+		};
+
+		var options = {
+			enableHighAccuracy: true,
+			timeout: 5000,
+			maximumAge: 10000
+		};
+
+		navigator.geolocation.getCurrentPosition(geoSuccess, geoError, options);
+	}
+
+	function getHTML(url) {
+		var request_url = url;
+		var MyRequest = new XMLHttpRequest(); // a new request
+		MyRequest.open("GET", request_url, true);
+		MyRequest.onload = function (e) {
+			if (MyRequest.readyState === 4) {
+				if (MyRequest.status === 200) {
+					console.log("Success!");
+					return MyRequest.responseText;
+				} else {
+					console.error(MyRequest.statusText);
+				}
+			}
+		};
+		MyRequest.onerror = function (e) {
+			console.error(MyRequest.statusText);
+		};
+		MyRequest.send(null);
+	}
+
+	var stationInfo = "";
+	var stationStat = "";
+	function stationInformation(response) {
+		stationInfo = JSON.stringify(JSON.parse(response));
+		var weather_response = getHTML(weather_url, "weather");
+	}
+
+	function stationStatus(response) {
+		var loc_key = JSON.parse(response).Key;
+		var weather_response = getHTML(weather_url, "weather");
+	}
+</script>
