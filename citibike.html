@@ -187,7 +187,8 @@
 		})
 		console.log("# Active Stations: "+ Object.keys(orderStations).length);
 
-		var orderByDistance = Array.from(Object.keys(orderStations)).sort();
+		var orderByDistance = Array.from(Object.keys(orderStations));
+		orderByDistance = orderByDistance.map(Number).sort(); // keys are strings.
 		console.log("Ordered Distances: "+orderByDistance);
 		var orderByStation = [];
 		for (var i = 0; i < orderByDistance.length; i++) {
