@@ -139,7 +139,7 @@
 			console.log("Ran dataset against logic")
 
 			console.log("Filling Table ...");
-			fillTable(orderedStations, stationsAvailRent, stationsAvailReturn, stationsWithEBike, stationsEBikeVoucher);
+			fillTable(orderedStations, stationsAvailRent, stationsAvailReturn, stationsWithEBike, stationsEBikeVoucher, stations);
 
 		}
 		
@@ -255,7 +255,13 @@
 		return stationsEBikeVoucher;
 	}
 
-	function fillCell(num_bikes_available, num_ebikes_available, num_docks_available, electric_bike_surcharge_waiver) {
+	function fillCell(station, stations) {
+
+		num_bikes_available = stations[station].num_bikes_available;
+		num_ebikes_available = stations[station].num_ebikes_available;
+		num_docks_available = stations[station].num_docks_available;
+		electric_bike_surcharge_waiver = stations[station].electric_bike_surcharge_waiver;
+
 		var bikeimg = document.createElement("bikeimg");
 		bikeimg.src = "bike.png";
 
@@ -269,7 +275,7 @@
 
 	}
 
-	function fillTable(orderedStations, stationsAvailRent, stationsAvailReturn, stationsWithEBike, stationsEBikeVoucher) {
+	function fillTable(orderedStations, stationsAvailRent, stationsAvailReturn, stationsWithEBike, stationsEBikeVoucher, stations) {
 		var l = parseInt(document.getElementById("recordLength").value);
 
 		var table = document.getElementById("stationLists");
@@ -283,15 +289,11 @@
 			var closestAvailEBikeCell = row.insertCell(3);
 			var closestFreeEBikeCell  = row.insertCell(4);
 
-			closestStationCell.appendChild(fillCell(stations[orderedStations[i]].num_bikes_available, stations[orderedStations[i]].num_ebikes_available, stations[orderedStations[i]].num_docks_available, stations[orderedStations[i]].electric_bike_surcharge_waiver));
-
-			closestAvailBikesCell.appendChild(fillCell(stations[stationsAvailReturn[i]].num_bikes_available, stations[stationsAvailReturn[i]].num_ebikes_available, stations[stationsAvailReturn[i]].num_docks_available, stations[stationsAvailReturn[i]].electric_bike_surcharge_waiver));
-
-			closestAvailDocksCell.appendChild(fillCell(stations[stationsAvailReturn[i]].num_bikes_available, stations[stationsAvailReturn[i]].num_ebikes_available, stations[stationsAvailReturn[i]].num_docks_available, stations[stationsAvailReturn[i]].electric_bike_surcharge_waiver));
-
-			closestAvailEBikeCell.appendChild(fillCell(stations[stationsWithEBike[i]].num_bikes_available, stations[stationsWithEBike[i]].num_ebikes_available, stations[stationsWithEBike[i]].num_docks_available, stations[stationsWithEBike[i]].electric_bike_surcharge_waiver));
-
-			closestFreeEBikeCell.appendChild(fillCell(stations[stationsEBikeVoucher[i]].num_bikes_available, stations[stationsEBikeVoucher[i]].num_ebikes_available, stations[stationsEBikeVoucher[i]].num_docks_available, stations[stationsEBikeVoucher[i]].electric_bike_surcharge_waiver));
+			closestStationCell.appendChild(fillCell(orderedStations[i], stations));
+			closestAvailBikesCell.appendChild(fillCell(stationsAvailReturn[i], stations));
+			closestAvailDocksCell.appendChild(fillCell(stationsAvailReturn[i], stations));
+			closestAvailEBikeCell.appendChild(fillCell(stationsWithEBike[i], stations));
+			closestFreeEBikeCell.appendChild(fillCell(stationsEBikeVoucher[i], stations));
 			
 		}
 	}
