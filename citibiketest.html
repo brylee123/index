@@ -8,7 +8,7 @@
 <label for="recordLength"># of Results</label>
 <input type="number" id="recordLength" value="5" pattern="^[0-9]*$" />
 
-<table id="stationLists" style="width: 100%">
+<table id="stationLists" style="width: 100%" border="1">
 </table>
 
 <script>
@@ -276,7 +276,7 @@
 			innerTempHTML = innerTempHTML + "<img src=\"citibike_icons/ebikewaiver_false.png\" height=\"10\">"+electric_bike_surcharge_waiver+"<br>";
 		}
 
-		innerTempHTML = innerTempHTML + distancemi + " miles / " + distancekm + "km away";
+		innerTempHTML = innerTempHTML + distancemi + " miles / " + distancekm + " km away";
 
 		cell.innerHTML = innerTempHTML;
 
