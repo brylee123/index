@@ -102,8 +102,6 @@
 			var userLat = document.getElementById('lat').value;
 			var userLon = document.getElementById('lon').value;
 
-			console.log("Iterate Start:")
-
 			for (var i = 0; i < stationlength; i++) {
 				var station_id = stationlist_info[i].station_id;
 
@@ -131,7 +129,9 @@
 
 			}
 
-			var orderedStations = closestStation(stations);
+			console.log("JSON Merge Complete");
+
+			var orderedStations = closestStations(stations);
 			var stationsAvailRent = closestStationsAvailRent(orderedStations);
 			var stationsAvailReturn = closestStationsAvailReturn(orderByStation);
 			var stationsEBikeVoucher = closestStationsEBikeVoucher(orderByStation);
