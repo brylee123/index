@@ -273,10 +273,17 @@
 		cell.appendChild(ebikeimg)
 
 		var innerTempHTML = "<a href=\"http://maps.google.com/?daddr="+stations[station].lat+","+stations[station].lon+"\">"+stations[station].name+"</a><br>";
-		innerTempHTML = innerTempHTML + "<img src=\"citibike_icons/bike.png\" height=\"10\">"+num_bikes_available+"<br>"
-		innerTempHTML = innerTempHTML + "<img src=\"citibike_icons/ebike.png\" height=\"10\">"+num_ebikes_available+"<br>"
-		innerTempHTML = innerTempHTML + "<img src=\"citibike_icons/docking.png\" height=\"10\">"+num_docks_available+"<br>"
-		innerTempHTML = innerTempHTML + "<img src=\"citibike_icons/ebikewaiver.png\" height=\"10\">"+electric_bike_surcharge_waiver+"<br>"
+		innerTempHTML = innerTempHTML + "<img src=\"citibike_icons/bike.png\" height=\"10\">"+num_bikes_available-num_ebikes_available+"<br>";
+		innerTempHTML = innerTempHTML + "<img src=\"citibike_icons/ebike.png\" height=\"10\">"+num_ebikes_available+"<br>";
+		innerTempHTML = innerTempHTML + "<img src=\"citibike_icons/docking.png\" height=\"10\">"+num_docks_available+"<br>";
+
+		if (electric_bike_surcharge_waiver) {
+			innerTempHTML = innerTempHTML + "<img src=\"citibike_icons/ebikewaiver_true.png\" height=\"10\">"+electric_bike_surcharge_waiver+"<br>";	
+		} else {
+			innerTempHTML = innerTempHTML + "<img src=\"citibike_icons/ebikewaiver_false.png\" height=\"10\">"+electric_bike_surcharge_waiver+"<br>";
+		}
+		
+		innerTempHTML = distancemi + " miles / " + distancekm + "km away";
 
 		cell.innerHTML = innerTempHTML
 
