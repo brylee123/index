@@ -119,7 +119,7 @@
 				stations[station_id].valet = ("valet" in stationlist_stat[i]) ? true : false;
 
 				stations[station_id].electric_bike_surcharge_waiver = stationlist_info[i].electric_bike_surcharge_waiver; // Seems to be depreciated
-				stations[station_id].electric_bike_surcharge_waiver = ((stationlist_stat[i].num_bikes_available == 0 && stationlist_stat[i].num_ebikes_available > 0)) ? true : false;
+				stations[station_id].electric_bike_surcharge_waiver = (((stationlist_stat[i].num_bikes_available == stationlist_stat[i].num_ebikes_available) && (stationlist_stat[i].num_ebikes_available > 0))) ? true : false;
 
 				stations[station_id].last_reported = stationlist_stat[i].last_reported;
 				stations[station_id].distance_from_user = distanceToStation(stations[station_id].lat, stations[station_id].lon, userLat, userLon);
