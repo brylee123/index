@@ -240,7 +240,7 @@
 		for (var i = orderByStation.length-1; i > 0; i--) {
 			var station_id = orderByStation[i];
 			
-			if (stations[station_id].electric_bike_surcharge_waiver == false) {
+			if ((stations[station_id].electric_bike_surcharge_waiver == false) || (stations[station_id].electric_bike_surcharge_waiver == "false")) {
 				//console.log("\tNo Free EBike Voucher: " + station_id)
 				stationsEBikeVoucher.splice(i, 1);
 			}
