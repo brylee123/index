@@ -257,8 +257,8 @@
 		num_docks_available = stations[station].num_docks_available;
 		electric_bike_surcharge_waiver = stations[station].electric_bike_surcharge_waiver;
 
-		distancekm = parseInt(stations[station].distance_from_user).toFixed(5);
-		distancemi = (stations[station].distance_from_user*0.621371).toFixed(5)
+		distancekm = stations[station].distance_from_user.toFixed(2);
+		distancemi = (stations[station].distance_from_user*0.621371).toFixed(2)
 
 		var cell = document.createElement("cell");
 		//http://maps.google.com/?daddr=LAT,LON
