@@ -11,6 +11,7 @@
 		<th> Closest Stations </th>
 		<th> Closest Available Bikes </th>
 		<th> Closest Available Docks </th>
+		<th> Cloest Available EBikes </th>
 		<th> Closest Free EBike Vouchers </th>
 	</tr>
 </table>
@@ -90,7 +91,7 @@
 		}
 
 		function mergeJSON(gbfsStationStatus, gbfsStationInfo) {
-			// do the combination here
+			
 			console.log("station_status.json Size: "+gbfsStationStatus.length);
 			console.log("station_information.json Size: "+gbfsStationInfo.length);
 
@@ -115,22 +116,16 @@
 
 				stations[station_id].num_bikes_available = stationlist_stat[i].num_bikes_available;
 				stations[station_id].num_bikes_disabled	= stationlist_stat[i].num_bikes_disabled;
-
 				stations[station_id].num_ebikes_available = stationlist_stat[i].num_ebikes_available;
-
 				stations[station_id].num_docks_available = stationlist_stat[i].num_docks_available;
 				stations[station_id].num_docks_disabled = stationlist_stat[i].num_docks_disabled;
 
 				stations[station_id].valet = ("valet" in stationlist_stat[i]) ? true: false;
-
 				stations[station_id].electric_bike_surcharge_waiver = stationlist_info[i].electric_bike_surcharge_waiver;
-
 				stations[station_id].last_reported = stationlist_stat[i].last_reported;
-
 				stations[station_id].distance_from_user = distanceToStation(stations[station_id].lat, stations[station_id].lon, userLat, userLon);
 
 				console.log(stations[station_id]);
-
 			}
 
 			console.log("JSON Merge Complete "+Object.keys(stations).length);
@@ -141,8 +136,10 @@
 			var stationsWithEBike = closestStationsWithEBike(orderedStations, stations);
 			var stationsEBikeVoucher = closestStationsEBikeVoucher(orderedStations, stations);
 
-			console.log("ok");
-			fillTable(orderedStations, stationsAvailRent, stationsAvailReturn, stationsEBikeVoucher);
+			console.log("Ran dataset against logic")
+
+			console.log("Filling Table ...");
+			fillTable(orderedStations, stationsAvailRent, stationsAvailReturn, stationsWithEBike, stationsEBikeVoucher);
 
 		}
 		
@@ -208,7 +205,7 @@
 		for (var i = orderByStation.length-1; i > 0; i--) {
 			var station_id = orderByStation[i];
 			if ((stations[station_id].num_bikes_available == 0) && (stations[station_id].num_ebikes_available == 0)) {
-				console.log("\tNot Available for Rent: " + station_id);
+				//console.log("\tNot Available for Rent: " + station_id);
 				stationsAvailRent.splice(i, 1);
 			}
 		}
@@ -222,7 +219,7 @@
 			var station_id = orderByStation[i];
 			
 			if (stations[station_id].num_docks_available == 0) {
-				console.log("\tNot Available for Return: " + station_id);
+				//console.log("\tNot Available for Return: " + station_id);
 				stationsAvailReturn.splice(i, 1);
 			}
 		}
@@ -232,13 +229,11 @@
 
 	function closestStationsWithEBike(orderByStation, stations) {
 		stationsEBike = JSON.parse(JSON.stringify(orderByStation));
-
-		console.log("stations with ebike: "+stationsEBike.length);
 		for (var i = orderByStation.length-1; i > 0; i--) {
 			var station_id = orderByStation[i];
 			
 			if (stations[station_id].num_ebikes_available == 0) {
-				console.log("\tNot Available for EBike Rental: " + station_id)
+				//console.log("\tNot Available for EBike Rental: " + station_id)
 				stationsEBike.splice(i, 1);
 			}
 		}
@@ -252,7 +247,7 @@
 			var station_id = orderByStation[i];
 			
 			if (stations[station_id].electric_bike_surcharge_waiver == false) {
-				console.log("\tNo Free EBike Voucher: " + station_id)
+				//console.log("\tNo Free EBike Voucher: " + station_id)
 				stationsEBikeVoucher.splice(i, 1);
 			}
 		}
@@ -260,7 +255,7 @@
 		return stationsEBikeVoucher;
 	}
 
-	function fillCell(num_bikes_available, num_ebikes_available, num_docks_available, ) {
+	function fillCell(num_bikes_available, num_ebikes_available, num_docks_available, electric_bike_surcharge_waiver) {
 		var bikeimg = document.createElement("bikeimg");
 		bikeimg.src = "bike.png";
 
@@ -268,33 +263,36 @@
 		ebikeimg.src = "ebike.png";
 
 		var cell = document.createElement("cell");
+		cell.innerHTML = "Bikes Available:"+num_bikes_available+"\nEBikes Available: "+num_ebikes_available+"\nDocks Available: "+num_docks_available+"\nEBike Waiver:"+electric_bike_surcharge_waiver;
+
+		return cell;
 
 	}
 
-	function fillTable(orderedStations, stationsAvailRent, stationsAvailReturn, stationsEBikeVoucher) {
+	function fillTable(orderedStations, stationsAvailRent, stationsAvailReturn, stationsWithEBike, stationsEBikeVoucher) {
 		var l = parseInt(document.getElementById("recordLength").value);
 
 		var table = document.getElementById("stationLists");
 
-
-
 		for (var i = 0; i < l; i++) {
-			var row = table.insertRow(i+1);
-			var closestStationCell = row.insertCell(0);
-			var closestAvailBikes  = row.insertCell(1);
-			var closestAvailDocks  = row.insertCell(2);
-			var closestFreeEBike   = row.insertCell(3);
+			var row = tableRef.insertRow(-1);
+			//var row = table.insertRow(i+1);
+			var closestStationCell	  = row.insertCell(0);
+			var closestAvailBikesCell = row.insertCell(1);
+			var closestAvailDocksCell = row.insertCell(2);
+			var closestAvailEBikeCell = row.insertCell(3);
+			var closestFreeEBikeCell  = row.insertCell(4);
 
-			stations[orderedStations[i]].num_bikes_available;
-			stations[orderedStations[i]].num_ebikes_available;
-			stations[orderedStations[i]].num_docks_available;
-			stations[orderedStations[i]].electric_bike_surcharge_waiver;
+			closestStationCell.appendChild(fillCell(stations[orderedStations[i]].num_bikes_available, stations[orderedStations[i]].num_ebikes_available, stations[orderedStations[i]].num_docks_available, stations[orderedStations[i]].electric_bike_surcharge_waiver));
+
+			closestAvailBikesCell.appendChild(fillCell(stations[stationsAvailReturn[i]].num_bikes_available, stations[stationsAvailReturn[i]].num_ebikes_available, stations[stationsAvailReturn[i]].num_docks_available, stations[stationsAvailReturn[i]].electric_bike_surcharge_waiver));
+
+			closestAvailDocksCell.appendChild(fillCell(stations[stationsAvailReturn[i]].num_bikes_available, stations[stationsAvailReturn[i]].num_ebikes_available, stations[stationsAvailReturn[i]].num_docks_available, stations[stationsAvailReturn[i]].electric_bike_surcharge_waiver));
+
+			closestAvailEBikeCell.appendChild(fillCell(stations[stationsWithEBike[i]].num_bikes_available, stations[stationsWithEBike[i]].num_ebikes_available, stations[stationsWithEBike[i]].num_docks_available, stations[stationsWithEBike[i]].electric_bike_surcharge_waiver));
+
+			closestFreeEBikeCell.appendChild(fillCell(stations[stationsEBikeVoucher[i]].num_bikes_available, stations[stationsEBikeVoucher[i]].num_ebikes_available, stations[stationsEBikeVoucher[i]].num_docks_available, stations[stationsEBikeVoucher[i]].electric_bike_surcharge_waiver));
 			
-
-			closestStationCell.innerHTML = orderedStations[i];
-			closestAvailBikes.innerHTML  = stationsAvailRent[i];
-			closestAvailDocks.innerHTML  = stationsAvailReturn[i];
-			closestFreeEBike.innerHTML   = stationsEBikeVoucher[i];
 		}
 	}
 
