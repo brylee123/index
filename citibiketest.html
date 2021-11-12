@@ -4,7 +4,7 @@
 <input type="text" id="lon" value="Longitude">
 <br>
 <input type="button" value="Load Statistics" onclick="loadCitiBikeData()">
-<input type="number" id="recordLength" pattern="^[0-9]*$" />
+<input type="number" id="recordLength" value="5" pattern="^[0-9]*$" />
 
 <table id="stationLists">
 	<tr>
@@ -136,6 +136,8 @@
 			var stationsAvailRent = closestStationsAvailRent(orderedStations);
 			var stationsAvailReturn = closestStationsAvailReturn(orderByStation);
 			var stationsEBikeVoucher = closestStationsEBikeVoucher(orderByStation);
+
+			console.log("ok")
 			fillTable(orderedStations, stationsAvailRent, stationsAvailReturn, stationsEBikeVoucher);
 
 		}
@@ -168,7 +170,7 @@
 
 		Object.keys(stations).forEach(function(key) {
 			if (stations[key].station_status !== "active") {
-				continue;
+				return;
 			}
 
 			var slat = stations[key]["lat"];
@@ -238,6 +240,9 @@
 
 		var ebikeimg = document.createElement("ebikeimg");
 		ebikeimg.src = "ebike.png";
+
+		var cell = document.createElement("cell");
+
 	}
 
 	function fillTable(orderedStations, stationsAvailRent, stationsAvailReturn, stationsEBikeVoucher) {
