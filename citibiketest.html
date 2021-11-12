@@ -136,10 +136,10 @@
 			console.log("JSON Merge Complete "+Object.keys(stations).length);
 
 			var orderedStations = closestStations(stations);
-			var stationsAvailRent = closestStationsAvailRent(orderedStations);
-			var stationsAvailReturn = closestStationsAvailReturn(orderedStations);
-			var stationsWithEBike = closestStationsWithEBike(orderByStation);
-			var stationsEBikeVoucher = closestStationsEBikeVoucher(orderedStations);
+			var stationsAvailRent = closestStationsAvailRent(orderedStations, stations);
+			var stationsAvailReturn = closestStationsAvailReturn(orderedStations, stations);
+			var stationsWithEBike = closestStationsWithEBike(orderByStation, stations);
+			var stationsEBikeVoucher = closestStationsEBikeVoucher(orderedStations, stations);
 
 			console.log("ok");
 			fillTable(orderedStations, stationsAvailRent, stationsAvailReturn, stationsEBikeVoucher);
@@ -203,7 +203,7 @@
 		return orderByStation;
 	}
 
-	function closestStationsAvailRent(orderByStation) {
+	function closestStationsAvailRent(orderByStation, stations) {
 		console.log("function start")
 		stationsAvailRent = JSON.parse(JSON.stringify(orderByStation));
 		console.log("check global stations:" + Object.keys(stations).length);
@@ -220,7 +220,7 @@
 		return stationsAvailRent;
 	}
 
-	function closestStationsAvailReturn(orderByStation) {
+	function closestStationsAvailReturn(orderByStation, stations) {
 		stationsAvailReturn = JSON.parse(JSON.stringify(orderByStation));
 		for (var i = orderByStation.length; i > 0; i--) {
 			var station_id = orderByStation[i];
@@ -234,7 +234,7 @@
 		return stationsAvailReturn;
 	}
 
-	function closestStationsWithEBike(orderByStation) {
+	function closestStationsWithEBike(orderByStation, stations) {
 		stationsEBike = JSON.parse(JSON.stringify(orderByStation));
 		for (var i = orderByStation.length; i > 0; i--) {
 			var station_id = orderByStation[i];
@@ -248,7 +248,7 @@
 		return stationsEBike;
 	}
 
-	function closestStationsEBikeVoucher(orderByStation) {
+	function closestStationsEBikeVoucher(orderByStation, stations) {
 		stationsEBikeVoucher = JSON.parse(JSON.stringify(orderByStation));
 		for (var i = orderByStation.length; i > 0; i--) {
 			var station_id = orderByStation[i];
