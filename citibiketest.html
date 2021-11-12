@@ -283,12 +283,10 @@
 			innerTempHTML = innerTempHTML + "<img src=\"citibike_icons/ebikewaiver_false.png\" height=\"10\">"+electric_bike_surcharge_waiver+"<br>";
 		}
 		
-		innerTempHTML = distancemi + " miles / " + distancekm + "km away";
+		innerTempHTML = innerTempHTML + distancemi + " miles / " + distancekm + "km away";
 
-		cell.innerHTML = innerTempHTML
+		cell.innerHTML = innerTempHTML;
 
-		//"Bikes Available:"+num_bikes_available+"\nEBikes Available: "+num_ebikes_available+"\nDocks Available: "+num_docks_available+"\nEBike Waiver:"+electric_bike_surcharge_waiver;
-		console.log(cell.innerHTML)
 		return cell;
 
 	}
