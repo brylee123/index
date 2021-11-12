@@ -269,7 +269,17 @@
 		ebikeimg.src = "ebike.png";
 
 		var cell = document.createElement("cell");
-		cell.innerHTML = "Station: "+station.name+"Bikes Available:"+num_bikes_available+"\nEBikes Available: "+num_ebikes_available+"\nDocks Available: "+num_docks_available+"\nEBike Waiver:"+electric_bike_surcharge_waiver;
+		//http://maps.google.com/?daddr=40.71067801270058,-74.037574499543
+
+		cell.appendChild(bikeimg)
+		cell.appendChild(ebikeimg)
+
+		var innerTempHTML = "<a href=\"http://maps.google.com/?daddr="+stations[station].lat+","+stations[station].lon+"\">"+stations[station].name+"</a><br>";
+		innerTempHTML = innerTempHTML + "<img src"
+
+		cell.innerHTML = innerTempHTML
+
+		//"Bikes Available:"+num_bikes_available+"\nEBikes Available: "+num_ebikes_available+"\nDocks Available: "+num_docks_available+"\nEBike Waiver:"+electric_bike_surcharge_waiver;
 		console.log(cell.innerHTML)
 		return cell;
 
