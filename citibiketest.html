@@ -72,7 +72,7 @@
 					}
 				};
 				request.onerror = function() {
-					console.log("Network Error.")
+					//console.log("Network Error.")
 					reject(Error('There was a network error.'));
 				};
 				request.send();
@@ -85,7 +85,7 @@
 				mergeJSON(responses[0], responses[1]);
 			}).catch(function(error) {
 				// do error processing here if any promise was rejected
-				console.log("Promise was rejected")
+				//console.log("Promise was rejected")
 			});
 		}
 
@@ -142,7 +142,7 @@
 
 		}
 		
-		var gbfsStationStatusURL = "http://gbfs.citibikenyc.com/gbfs/en/station_status.json";
+		var gbfsStationStatusURL = "https://gbfs.citibikenyc.com/gbfs/en/station_status.json";
 		var gbfsStationInfoURL	 = "https://gbfs.citibikenyc.com/gbfs/es/station_information.json";
 		parse(gbfsStationStatusURL, gbfsStationInfoURL);
 
