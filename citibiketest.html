@@ -123,19 +123,12 @@
 
 				stations[station_id].valet = ("valet" in stationlist_stat[i]) ? true: false;
 
-				console.log("1")
-
 				stations[station_id].electric_bike_surcharge_waiver = stationlist_info[i].electric_bike_surcharge_waiver;
-
-				console.log("2")
 
 				stations[station_id].last_reported = stationlist_stat[i].last_reported;
 
-				console.log("3")
-
 				stations[station_id].distance_from_user = distanceToStation(stations[station_id].lat, stations[station_id].lon, userLat, userLon);
 
-				console.log("4")
 			}
 
 			var orderedStations = closestStation(stations);
@@ -173,23 +166,24 @@
 		var closest_distance = 99999999;
 
 		var orderStations = {};
-
+		console.log("closeststations");
 		Object.keys(stations).forEach(function(key) {
 			if (stations[key].station_status !== "active") {
-				return;
-			}
-
-			var slat = stations[key]["lat"];
-			var slon = stations[key]["lon"];
-
-			dkm = distanceToStation(slat, slon);
-
-			if (dkm in orderStations) {
-				orderStations[dkm] =	orderStations[dkm].push(key);
+				// don't include out of service stations
 			} else {
-				orderStations[dkm] = [key];
+				var slat = stations[key].lat;
+				var slon = stations[key].lon;
+
+				dkm = distanceToStation(slat, slon);
+
+				if (dkm in orderStations) {
+					orderStations[dkm] =	orderStations[dkm].push(key);
+				} else {
+					orderStations[dkm] = [key];
+				}
 			}
 		})
+		console.log("post iterate keys")
 
 		var orderByDistance = Array.from(Object.keys(orderStations)).sort();
 		var orderByStation = [];
