@@ -258,7 +258,7 @@
 		electric_bike_surcharge_waiver = stations[station].electric_bike_surcharge_waiver;
 
 		distancekm = parseInt(stations[station].distance_from_user).toFixed(5);
-		distancemi = (distancekm*0.621371).toFixed(5)
+		distancemi = (stations[station].distance_from_user*0.621371).toFixed(5)
 
 		var cell = document.createElement("cell");
 		//http://maps.google.com/?daddr=LAT,LON
