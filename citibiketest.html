@@ -212,7 +212,6 @@
 			if ((stations[station_id].num_bikes_available == 0) && (stations[station_id].num_ebikes_available == 0)) {
 				console.log("Not Available for Rent: " + station_id)
 				stationsAvailRent.splice(i, 1);
-				i = i+1;
 			}
 		}
 		console.log("# Stations Available Rent: "+stationsAvailRent.length);
@@ -226,7 +225,6 @@
 			
 			if (stations[station_id].num_docks_available > 0) {
 				stationsAvailReturn.splice(i, 1);
-				i = i+1;
 			}
 		}
 		console.log("# Stations Available Return: "+stationsAvailReturn.length);
@@ -240,7 +238,6 @@
 			
 			if (stations[station_id].num_ebikes_available > 0) {
 				stationsEBike.splice(i, 1);
-				i = i+1;
 			}
 		}
 		console.log("# Stations with Ebikes: "+stationsEBike.length);
