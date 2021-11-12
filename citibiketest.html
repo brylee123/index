@@ -102,6 +102,8 @@
 			var userLat = document.getElementById('lat').value;
 			var userLon = document.getElementById('lon').value;
 
+			console.log("Iterate Start:")
+
 			for (var i = 0; i < stationlength; i++) {
 				var station_id = stationlist_info[i].station_id;
 				
@@ -111,9 +113,13 @@
 
 				stations[station_id] = {};
 
+				console.log("1")
+
 				stations[station_id].name = stationlist_info[i].name;
 				stations[station_id].lat = stationlist_info[i].lat;
 				stations[station_id].lon = stationlist_info[i].lon;
+
+				console.log("2")
 
 				stations[station_id].num_bikes_available = stationlist_stat[i].num_bikes_available;
 				stations[station_id].num_bikes_disabled	= stationlist_stat[i].num_bikes_disabled;
@@ -123,6 +129,8 @@
 				stations[station_id].num_docks_available = stationlist_stat[i].num_docks_available;
 				stations[station_id].num_docks_disabled = stationlist_stat[i].num_docks_disabled;
 
+				console.log("3")
+
 				stations[station_id].valet = ("valet" in stationlist_stat[i]) ? true: false;
 
 				stations[station_id].electric_bike_surcharge_waiver = station_list_info[i].electric_bike_surcharge_waiver;
@@ -130,6 +138,8 @@
 				stations[station_id].last_reported = last_reported;
 
 				stations[station_id].distance_from_user = distanceToStation(stations[station_id].lat, stations[station_id].lon, userLat, userLon);
+
+				console.log("4")
 			}
 
 			var orderedStations = closestStation(stations);
