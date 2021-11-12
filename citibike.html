@@ -188,6 +188,7 @@
 		console.log("# Active Stations: "+ Object.keys(orderStations).length);
 
 		var orderByDistance = Array.from(Object.keys(orderStations)).sort();
+		console.log("Ordered Distances: "+orderByDistance);
 		var orderByStation = [];
 		for (var i = 0; i < orderByDistance.length; i++) {
 			dkm = orderByDistance[i];
