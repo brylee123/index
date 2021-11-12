@@ -263,10 +263,9 @@
 		var cell = document.createElement("cell");
 		//http://maps.google.com/?daddr=LAT,LON
 
-		console.log("distance"+ stations[station].distance_from_user)
+		console.log("distance"+ stations[station].distance_from_user+"  distancekm:"+distancekm+"   distancemi:"+distancemi)
 
 		var innerTempHTML = "<a href=\"http://maps.google.com/?daddr="+stations[station].lat+","+stations[station].lon+"\">"+stations[station].name+"</a><br>";
-		console.log(innerTempHTML)
 		innerTempHTML = innerTempHTML + "<img src=\"citibike_icons/bike.png\" height=\"10\">"+(num_bikes_available-num_ebikes_available)+"<br>";
 		innerTempHTML = innerTempHTML + "<img src=\"citibike_icons/ebike.png\" height=\"10\">"+num_ebikes_available+"<br>";
 		innerTempHTML = innerTempHTML + "<img src=\"citibike_icons/docking.png\" height=\"10\">"+num_docks_available+"<br>";
@@ -276,11 +275,11 @@
 		} else {
 			innerTempHTML = innerTempHTML + "<img src=\"citibike_icons/ebikewaiver_false.png\" height=\"10\">"+electric_bike_surcharge_waiver+"<br>";
 		}
-		
+
 		innerTempHTML = innerTempHTML + distancemi + " miles / " + distancekm + "km away";
 
 		cell.innerHTML = innerTempHTML;
-		console.log(cell.innerHTML)
+
 		return cell;
 
 	}
