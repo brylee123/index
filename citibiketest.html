@@ -204,12 +204,11 @@
 	}
 
 	function closestStationsAvailRent(orderByStation, stations) {
-		console.log("function start")
 		stationsAvailRent = JSON.parse(JSON.stringify(orderByStation));
-		console.log("check global stations:" + Object.keys(stations).length);
+		console.log("check global stations: " + Object.keys(stations).length);
 		for (var i = orderByStation.length; i > 0; i--) {
 			var station_id = orderByStation[i];
-			
+			console.log(station_id);
 			if ((stations[station_id].num_bikes_available == 0) && (stations[station_id].num_ebikes_available == 0)) {
 				console.log("Not Available for Rent: " + station_id)
 				stationsAvailRent.splice(i, 1);
