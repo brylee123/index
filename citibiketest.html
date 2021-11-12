@@ -168,9 +168,10 @@
 		var orderStations = {};
 		console.log("closeststations. stationlength: "+Object.keys(stations).length);
 		Object.keys(stations).forEach(function(key) {
-			if (stations[key].station_status !== "active") {
+			if (stations[key].station_status != "active") {
 				// don't include out of service stations
-			} else {
+				console.log(key+" status:"+stations[key].station_status);
+			} else { // Active
 				var slat = stations[key].lat;
 				var slon = stations[key].lon;
 
