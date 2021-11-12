@@ -106,10 +106,6 @@
 
 			for (var i = 0; i < stationlength; i++) {
 				var station_id = stationlist_info[i].station_id;
-				
-				var num_docks_available = stationlist_stat[i].num_docks_available;
-
-				var last_reported = stationlist_stat[i].last_reported;
 
 				stations[station_id] = {};
 
@@ -128,13 +124,12 @@
 				stations[station_id].valet = ("valet" in stationlist_stat[i]) ? true: false;
 
 				console.log("1")
-				console.log(station_list_info[i].electric_bike_surcharge_waiver);
-				stations[station_id].electric_bike_surcharge_waiver = station_list_info[i].electric_bike_surcharge_waiver;
-				
+
+				stations[station_id].electric_bike_surcharge_waiver = stationlist_info[i].electric_bike_surcharge_waiver;
 
 				console.log("2")
 
-				stations[station_id].last_reported = last_reported;
+				stations[station_id].last_reported = stationlist_stat[i].last_reported;
 
 				console.log("3")
 
