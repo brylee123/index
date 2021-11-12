@@ -138,6 +138,7 @@
 			var orderedStations = closestStations(stations);
 			var stationsAvailRent = closestStationsAvailRent(orderedStations);
 			var stationsAvailReturn = closestStationsAvailReturn(orderedStations);
+			var stationsWithEBike = closestStationsWithEBike(orderByStation);
 			var stationsEBikeVoucher = closestStationsEBikeVoucher(orderedStations);
 
 			console.log("ok");
@@ -210,7 +211,7 @@
 			var station_id = orderByStation[i];
 			
 			if ((stations[station_id].num_bikes_available == 0) && (stations[station_id].num_ebikes_available == 0)) {
-				stationsAvailRent.pop(i);
+				stationsAvailRent.splice(i, 1);
 			}
 		}
 		console.log("# Stations Available Rent: "+stationsAvailRent.length);
@@ -223,11 +224,24 @@
 			var station_id = orderByStation[i];
 			
 			if (stations[station_id].num_docks_available > 0) {
-				stationsAvailReturn.pop(i);
+				stationsAvailReturn.splice(i, 1);
 			}
 		}
 		console.log("# Stations Available Return: "+stationsAvailReturn.length);
 		return stationsAvailReturn;
+	}
+
+	function closestStationsWithEBike(orderByStation) {
+		stationsEBike = JSON.parse(JSON.stringify(orderByStation));
+		for (var i = orderByStation.length; i > 0; i--) {
+			var station_id = orderByStation[i];
+			
+			if (stations[station_id].num_ebikes_available > 0) {
+				stationsEBike.splice(i, 1);
+			}
+		}
+		console.log("# Stations with Ebikes: "+stationsEBike.length);
+		return stationsEBike;
 	}
 
 	function closestStationsEBikeVoucher(orderByStation) {
@@ -236,7 +250,7 @@
 			var station_id = orderByStation[i];
 			
 			if (stations[station_id].electric_bike_surcharge_waiver == false) {
-				stationsEBikeVoucher.pop(i);
+				stationsEBikeVoucher.splice(i, 1);
 			}
 		}
 		console.log("# Stations with Free Ebike Vouchers: "+stationsEBikeVoucher.length);
