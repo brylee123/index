@@ -157,8 +157,6 @@
 		var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
 		var dkm = 6371*c;
 
-		console.log("Distance: "+dkm);
-
 		return dkm
 	}
 
@@ -176,12 +174,12 @@
 				var slat = stations[key].lat;
 				var slon = stations[key].lon;
 
-				console.log("distancetostation");
+				console.log("distancetostation KEY:"+key);
 
 				dkm = distanceToStation(slat, slon);
 
 				if (dkm in orderStations) {
-					orderStations[dkm] =	orderStations[dkm].push(key);
+					orderStations[dkm] = orderStations[dkm].push(key);
 				} else {
 					orderStations[dkm] = [key];
 				}
