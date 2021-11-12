@@ -241,7 +241,7 @@
 		for (var i = orderByStation.length-1; i > 0; i--) {
 			var station_id = orderByStation[i];
 			
-			if ((stations[station_id].electric_bike_surcharge_waiver === false) || (stations[station_id].electric_bike_surcharge_waiver === "false")) {
+			if (!stations[station_id].electric_bike_surcharge_waiver) {
 				//console.log("\tNo Free EBike Voucher: " + station_id)
 				stationsEBikeVoucher.splice(i, 1);
 			}
@@ -262,8 +262,6 @@
 
 		var cell = document.createElement("cell");
 		//http://maps.google.com/?daddr=LAT,LON
-
-		console.log("distance"+ stations[station].distance_from_user+"  distancekm:"+distancekm+"   distancemi:"+distancemi)
 
 		var innerTempHTML = "<a href=\"http://maps.google.com/?daddr="+stations[station].lat+","+stations[station].lon+"\">"+stations[station].name+"</a><br>";
 		innerTempHTML = innerTempHTML + "<img src=\"citibike_icons/bike.png\" height=\"10\">"+(num_bikes_available-num_ebikes_available)+"<br>";
