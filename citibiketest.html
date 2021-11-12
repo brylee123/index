@@ -112,7 +112,7 @@
 				stations[station_id].lon = stationlist_info[i].lon;
 
 				stations[station_id].station_status = stationlist_stat[i].station_status;
-				
+
 				stations[station_id].num_bikes_available = stationlist_stat[i].num_bikes_available;
 				stations[station_id].num_bikes_disabled	= stationlist_stat[i].num_bikes_disabled;
 
@@ -171,16 +171,14 @@
 		var closest_distance = 99999999;
 
 		var orderStations = {};
-		console.log("closeststations. stationlength: "+Object.keys(stations).length);
+		console.log("# Total Stations: "+Object.keys(stations).length);
 		Object.keys(stations).forEach(function(key) {
 			if (stations[key].station_status != "active") {
 				// don't include out of service stations
-				console.log(key+" status:"+stations[key].station_status);
+				console.log("\tStation "+key+" status: "+stations[key].station_status);
 			} else { // Active
 				var slat = stations[key].lat;
 				var slon = stations[key].lon;
-
-				console.log("distancetostation KEY:"+key);
 
 				dkm = distanceToStation(slat, slon);
 
@@ -191,10 +189,9 @@
 				}
 			}
 		})
-		console.log("post iterate keys"+ Object.keys(orderStations).length)
+		console.log("# Active Stations: "+ Object.keys(orderStations).length);
 
 		var orderByDistance = Array.from(Object.keys(orderStations)).sort();
-		console.log("orderByDistance length:" + orderByDistance.length)
 		var orderByStation = [];
 		for (var i = 0; i < orderByDistance.length; i++) {
 			dkm = orderByDistance[i];
@@ -202,9 +199,8 @@
 				orderByStation.push(orderStations[dkm].pop());
 			}
 		}
-
-		console.log(orderByStation.length)
-
+		console.log("Exist Equal Distance Stations: "+orderByDistance.length == orderByStation.length);
+		
 		return orderByStation;
 	}
 
@@ -217,6 +213,7 @@
 				stationsAvailRent.pop(i);
 			}
 		}
+		console.log("# Stations Available Rent: "+stationsAvailRent.length);
 		return stationsAvailRent;
 	}
 
@@ -229,6 +226,7 @@
 				stationsAvailReturn.pop(i);
 			}
 		}
+		console.log("# Stations Available Return: "+stationsAvailReturn.length);
 		return stationsAvailReturn;
 
 	}
@@ -242,6 +240,7 @@
 				stationsEBikeVoucher.pop(i);
 			}
 		}
+		console.log("# Stations with Free Ebike Vouchers: "+stationsEBikeVoucher.length);
 		return stationsEBikeVoucher;
 	}
 
