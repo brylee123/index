@@ -166,7 +166,7 @@
 		var closest_distance = 99999999;
 
 		var orderStations = {};
-		console.log("closeststations");
+		console.log("closeststations. stationlength: "+stations.length);
 		Object.keys(stations).forEach(function(key) {
 			if (stations[key].station_status !== "active") {
 				// don't include out of service stations
@@ -185,9 +185,10 @@
 				}
 			}
 		})
-		console.log("post iterate keys")
+		console.log("post iterate keys" orderStations.length)
 
 		var orderByDistance = Array.from(Object.keys(orderStations)).sort();
+		console.log("orderByDistance length:"+orderByDistance.length)
 		var orderByStation = [];
 		for (var i = 0; i < orderByDistance.length; i++) {
 			dkm = orderByDistance[i];
