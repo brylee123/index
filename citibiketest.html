@@ -6,7 +6,7 @@
 <input type="button" value="Load Statistics" onclick="getLocation(); loadCitiBikeData()">
 <input type="number" id="recordLength" value="5" pattern="^[0-9]*$" />
 
-<table id="stationLists">
+<table id="stationLists" style="width: 100%">
 	<tr>
 		<th> Closest Stations </th>
 		<th> Closest Available Bikes </th>
@@ -264,7 +264,7 @@
 
 		var cell = document.createElement("cell");
 		cell.innerHTML = "Bikes Available:"+num_bikes_available+"\nEBikes Available: "+num_ebikes_available+"\nDocks Available: "+num_docks_available+"\nEBike Waiver:"+electric_bike_surcharge_waiver;
-
+		console.log(cell.innerHTML)
 		return cell;
 
 	}
