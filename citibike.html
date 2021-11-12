@@ -268,14 +268,16 @@
 		//http://maps.google.com/?daddr=LAT,LON
 
 		var innerTempHTML = "<a href=\"http://maps.google.com/?daddr="+stations[station].lat+","+stations[station].lon+"\">"+stations[station].name+"</a><br>";
-		innerTempHTML = innerTempHTML + "<img src=\"citibike_icons/bike.png\" height=\"10\">"+(num_bikes_available-num_ebikes_available)+"<br>";
-		innerTempHTML = innerTempHTML + "<img src=\"citibike_icons/ebike.png\" height=\"10\">"+num_ebikes_available+"<br>";
-		innerTempHTML = innerTempHTML + "<img src=\"citibike_icons/docking.png\" height=\"10\">"+num_docks_available+"<br>";
+		innerTempHTML = innerTempHTML + "<tr><td><img src=\"citibike_icons/bike.png\" height=\"10\"></td><td>"+(num_bikes_available-num_ebikes_available)+"</td></tr><br>";
+		innerTempHTML = innerTempHTML + "<tr><td><img src=\"citibike_icons/ebike.png\" height=\"10\"></td><td>"+num_ebikes_available+"</td></tr><br>";
+		innerTempHTML = innerTempHTML + "<tr><td><img src=\"citibike_icons/docking.png\" height=\"10\"></td><td>"+num_docks_available+"</td></tr><br>";
 
 		if (electric_bike_surcharge_waiver) {
-			innerTempHTML = innerTempHTML + "<img src=\"citibike_icons/ebikewaiver_true.png\" height=\"10\">"+electric_bike_surcharge_waiver+"<br>";	
+			let ebikewaiver_msg = "No Additional Cost E-Bike"
+			innerTempHTML = innerTempHTML + "<tr><td><img src=\"citibike_icons/ebikewaiver_true.png\" height=\"10\"></td><td>"+ebikewaiver_msg+"</td></tr><br>";	
 		} else {
-			innerTempHTML = innerTempHTML + "<img src=\"citibike_icons/ebikewaiver_false.png\" height=\"10\">"+electric_bike_surcharge_waiver+"<br>";
+			let ebikewaiver_msg = "N/A"
+			innerTempHTML = innerTempHTML + "<tr><td><img src=\"citibike_icons/ebikewaiver_false.png\" height=\"10\"></td><td>"+ebikewaiver_msg+"</td></tr><br>";
 		}
 
 		innerTempHTML = innerTempHTML + distancemi + " miles / " + distancekm + " km away";
@@ -295,7 +297,7 @@
 		}
 
 		var table = document.getElementById("stationLists");
-		table.innerHTML = "<tr><th>Closest Stations</th><th>Closest Available Bikes</th><th>Closest Available Docks</th><th>Closest Available EBikes</th><th>Closest Free EBike Vouchers</th></tr>"; // Wipe Clear
+		table.innerHTML = "<tr><th>Stations</th><th>Available Bikes</th><th>Available Docks</th><th>Available EBikes</th><th>Free E-Bike Waiver</th></tr>"; // Wipe Clear
 
 		for (var i = 0; i < l; i++) {
 			var row = table.insertRow(-1);
@@ -325,19 +327,6 @@
 			if (i < stationsEBikeVoucher.length) {
 				closestFreeEBikeCell.appendChild(fillCell(stationsEBikeVoucher[i], stations));
 			}	
-		}
-	}
-
-	function checkInputInteger(field) {
-		var value = Number(field.value);
-		if (Math.floor(value) == value) {
-			loadCitiBikeData();
-			return;
-		} else {
-			alert("This field must be an integer. Setting to default value.1")
-			field.value = 5;
-			field.select();
-			return;
 		}
 	}
 
