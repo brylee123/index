@@ -213,7 +213,7 @@
 		for (var i = orderByStation.length-1; i > 0; i--) {
 			var station_id = orderByStation[i];
 			
-			if (stations[station_id].num_docks_available == 0) {
+			if ((stations[station_id].num_docks_available == 0) && (!stations[station_id].valet)) {
 				//console.log("\tNot Available for Return: " + station_id);
 				stationsAvailReturn.splice(i, 1);
 			}
