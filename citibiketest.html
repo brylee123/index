@@ -206,7 +206,7 @@
 	function closestStationsAvailRent(orderByStation, stations) {
 		stationsAvailRent = JSON.parse(JSON.stringify(orderByStation));
 		console.log("check global stations: " + Object.keys(stations).length);
-		for (var i = orderByStation.length; i > 0; i--) {
+		for (var i = orderByStation.length-1; i > 0; i--) {
 			var station_id = orderByStation[i];
 			console.log(station_id);
 			if ((stations[station_id].num_bikes_available == 0) && (stations[station_id].num_ebikes_available == 0)) {
@@ -221,7 +221,7 @@
 
 	function closestStationsAvailReturn(orderByStation, stations) {
 		stationsAvailReturn = JSON.parse(JSON.stringify(orderByStation));
-		for (var i = orderByStation.length; i > 0; i--) {
+		for (var i = orderByStation.length-1; i > 0; i--) {
 			var station_id = orderByStation[i];
 			
 			if (stations[station_id].num_docks_available > 0) {
@@ -235,7 +235,7 @@
 
 	function closestStationsWithEBike(orderByStation, stations) {
 		stationsEBike = JSON.parse(JSON.stringify(orderByStation));
-		for (var i = orderByStation.length; i > 0; i--) {
+		for (var i = orderByStation.length-1; i > 0; i--) {
 			var station_id = orderByStation[i];
 			
 			if (stations[station_id].num_ebikes_available > 0) {
@@ -249,7 +249,7 @@
 
 	function closestStationsEBikeVoucher(orderByStation, stations) {
 		stationsEBikeVoucher = JSON.parse(JSON.stringify(orderByStation));
-		for (var i = orderByStation.length; i > 0; i--) {
+		for (var i = orderByStation.length-1; i > 0; i--) {
 			var station_id = orderByStation[i];
 			
 			if (stations[station_id].electric_bike_surcharge_waiver == false) {
