@@ -30,7 +30,7 @@
 		var geoSuccess = function(position) {
 			// Do magic with location
 			startPos = position;
-			console.log(startPos.coords.latitude.toString()+","+startPos.coords.longitude.toString())
+			console.log(startPos.coords.latitude.toString()+","+startPos.coords.longitude.toString());
 			document.getElementById('lat').value = startPos.coords.latitude;
 			document.getElementById('lon').value = startPos.coords.longitude;
 
@@ -64,15 +64,15 @@
 				request.open("GET", request_url, true);
 				request.onload = function() {
 					if (request.status === 200) {
-						console.log("Success!")
+						console.log("Success!");
 						resolve(request.responseText);
 					} else {
-						console.log("Error: Didn't load successfully")
+						console.log("Error: Didn't load successfully");
 						reject(Error('Didn\'t load successfully; error code:' + request.statusText));
 					}
 				};
 				request.onerror = function() {
-					//console.log("Network Error.")
+					//console.log("Network Error.");
 					reject(Error('There was a network error.'));
 				};
 				request.send();
@@ -85,7 +85,7 @@
 				mergeJSON(responses[0], responses[1]);
 			}).catch(function(error) {
 				// do error processing here if any promise was rejected
-				//console.log("Promise was rejected")
+				//console.log("Promise was rejected");
 			});
 		}
 
@@ -129,8 +129,7 @@
 
 				stations[station_id].distance_from_user = distanceToStation(stations[station_id].lat, stations[station_id].lon, userLat, userLon);
 
-
-				console.log(stations[station_id])
+				console.log(stations[station_id]);
 
 			}
 
@@ -138,10 +137,10 @@
 
 			var orderedStations = closestStations(stations);
 			var stationsAvailRent = closestStationsAvailRent(orderedStations);
-			var stationsAvailReturn = closestStationsAvailReturn(orderByStation);
-			var stationsEBikeVoucher = closestStationsEBikeVoucher(orderByStation);
+			var stationsAvailReturn = closestStationsAvailReturn(orderedStations);
+			var stationsEBikeVoucher = closestStationsEBikeVoucher(orderedStations);
 
-			console.log("ok")
+			console.log("ok");
 			fillTable(orderedStations, stationsAvailRent, stationsAvailReturn, stationsEBikeVoucher);
 
 		}
@@ -200,12 +199,13 @@
 			}
 		}
 		console.log("Exist Equal Distance Stations: "+orderByDistance.length == orderByStation.length);
-		
 		return orderByStation;
 	}
 
 	function closestStationsAvailRent(orderByStation) {
+		console.log("function start")
 		stationsAvailRent = JSON.parse(JSON.stringify(orderByStation));
+		console.log(stationsAvailRent.length)
 		for (var i = orderByStation.length; i > 0; i--) {
 			var station_id = orderByStation[i];
 			
@@ -228,7 +228,6 @@
 		}
 		console.log("# Stations Available Return: "+stationsAvailReturn.length);
 		return stationsAvailReturn;
-
 	}
 
 	function closestStationsEBikeVoucher(orderByStation) {
