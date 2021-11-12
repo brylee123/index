@@ -129,7 +129,7 @@
 
 			}
 
-			console.log("JSON Merge Complete "+stations.length);
+			console.log("JSON Merge Complete "+Object.keys(stations).length);
 
 			var orderedStations = closestStations(stations);
 			var stationsAvailRent = closestStationsAvailRent(orderedStations);
@@ -166,7 +166,7 @@
 		var closest_distance = 99999999;
 
 		var orderStations = {};
-		console.log("closeststations. stationlength: "+stations.length);
+		console.log("closeststations. stationlength: "+Object.keys(stations).length);
 		Object.keys(stations).forEach(function(key) {
 			if (stations[key].station_status !== "active") {
 				// don't include out of service stations
@@ -185,10 +185,10 @@
 				}
 			}
 		})
-		console.log("post iterate keys"+ orderStations.length)
+		console.log("post iterate keys"+ Object.keys(orderStations).length)
 
 		var orderByDistance = Array.from(Object.keys(orderStations)).sort();
-		console.log("orderByDistance length:"+orderByDistance.length)
+		console.log("orderByDistance length:" + orderByDistance.length)
 		var orderByStation = [];
 		for (var i = 0; i < orderByDistance.length; i++) {
 			dkm = orderByDistance[i];
