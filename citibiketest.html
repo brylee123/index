@@ -288,6 +288,11 @@
 
 	function fillTable(orderedStations, stationsAvailRent, stationsAvailReturn, stationsWithEBike, stationsEBikeVoucher, stations) {
 		var l = parseInt(document.getElementById("recordLength").value);
+		var max_record = Math.max(orderedStations.length, stationsAvailReturn.length, stationsAvailReturn.length, stationsWithEBike.length, stationsEBikeVoucher.length)
+		if (l > max_record) {
+			l = max_record;
+			document.getElementById("recordLength").value = l;
+		}
 
 		var table = document.getElementById("stationLists");
 		table.innerHTML = "<tr><th>Closest Stations</th><th>Closest Available Bikes</th><th>Closest Available Docks</th><th>Closest Available EBikes</th><th>Closest Free EBike Vouchers</th></tr>"; // Wipe Clear
@@ -316,7 +321,7 @@
 			if (i < stationsWithEBike.length) {
 				closestAvailEBikeCell.appendChild(fillCell(stationsWithEBike[i], stations));
 			}
-			
+
 			if (i < stationsEBikeVoucher.length) {
 				closestFreeEBikeCell.appendChild(fillCell(stationsEBikeVoucher[i], stations));
 			}	
