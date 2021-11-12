@@ -1,13 +1,14 @@
 <input type="button" value="Get Location" onclick="getLocation()">
-
+<br>
 <input type="text" id="lat" value="Latitude">
 <input type="text" id="lon" value="Longitude">
 <br>
 <input type="button" value="Load Statistics" onclick="getLocation(); loadCitiBikeData()">
+<br>
+<label for="recordLength"># of Results</label>
 <input type="number" id="recordLength" value="5" pattern="^[0-9]*$" />
 
 <table id="stationLists" style="width: 100%">
-
 </table>
 
 <script>
@@ -272,9 +273,9 @@
 		cell.appendChild(ebikeimg)
 
 		var innerTempHTML = "<a href=\"http://maps.google.com/?daddr="+stations[station].lat+","+stations[station].lon+"\">"+stations[station].name+"</a><br>";
-		innerTempHTML = innerTempHTML + "<img src=\"citibike_icons/bike.img\" height=\"10\">"+num_bikes_available+"<br>"
-		innerTempHTML = innerTempHTML + "<img src=\"citibike_icons/ebike.img\" height=\"10\">"+num_ebikes_available+"<br>"
-		innerTempHTML = innerTempHTML + "<img src=\"citibike_icons/docking.img\" height=\"10\">"+num_docks_available+"<br>"
+		innerTempHTML = innerTempHTML + "<img src=\"citibike_icons/bike.png\" height=\"10\">"+num_bikes_available+"<br>"
+		innerTempHTML = innerTempHTML + "<img src=\"citibike_icons/ebike.png\" height=\"10\">"+num_ebikes_available+"<br>"
+		innerTempHTML = innerTempHTML + "<img src=\"citibike_icons/docking.png\" height=\"10\">"+num_docks_available+"<br>"
 		innerTempHTML = innerTempHTML + "<img src=\"citibike_icons/ebikewaiver.png\" height=\"10\">"+electric_bike_surcharge_waiver+"<br>"
 
 		cell.innerHTML = innerTempHTML
