@@ -267,7 +267,7 @@
 		var cell = document.createElement("cell");
 		//http://maps.google.com/?daddr=LAT,LON
 
-		var innerTempHTML = "<table><th><a href=\"http://maps.google.com/?daddr="+stations[station].lat+","+stations[station].lon+"\">"+stations[station].name+"</a></th>";
+		var innerTempHTML = "<table style=\"width: 100%\" border=\"1\"><th><a href=\"http://maps.google.com/?daddr="+stations[station].lat+","+stations[station].lon+"\">"+stations[station].name+"</a></th>";
 		innerTempHTML = innerTempHTML + "<tr><td><img src=\"citibike_icons/bike.png\" height=\"10\"></td><td>"+(num_bikes_available-num_ebikes_available)+"</td></tr><br>";
 		innerTempHTML = innerTempHTML + "<tr><td><img src=\"citibike_icons/ebike.png\" height=\"10\"></td><td>"+num_ebikes_available+"</td></tr><br>";
 		innerTempHTML = innerTempHTML + "<tr><td><img src=\"citibike_icons/docking.png\" height=\"10\"></td><td>"+num_docks_available+"</td></tr><br>";
