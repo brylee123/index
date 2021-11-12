@@ -120,7 +120,7 @@
 
 				stations[station_id].electric_bike_surcharge_waiver = stationlist_info[i].electric_bike_surcharge_waiver; // Seems to be depreciated
 				stations[station_id].electric_bike_surcharge_waiver = ((stationlist_stat[i].num_bikes_available == 0 && stationlist_stat[i].num_ebikes_available > 0)) ? true : false;
-				
+
 				stations[station_id].last_reported = stationlist_stat[i].last_reported;
 				stations[station_id].distance_from_user = distanceToStation(stations[station_id].lat, stations[station_id].lon, userLat, userLon);
 
@@ -295,18 +295,30 @@
 		for (var i = 0; i < l; i++) {
 			var row = table.insertRow(-1);
 			//var row = table.insertRow(i+1);
-			var closestStationCell	  = row.insertCell(0);
-			var closestAvailBikesCell = row.insertCell(1);
-			var closestAvailDocksCell = row.insertCell(2);
-			var closestAvailEBikeCell = row.insertCell(3);
-			var closestFreeEBikeCell  = row.insertCell(4);
+			if (i < orderedStations.length) {
+				var closestStationCell	  = row.insertCell(0);
+				closestStationCell.appendChild(fillCell(orderedStations[i], stations));
+			}
 
-			closestStationCell.appendChild(fillCell(orderedStations[i], stations));
-			closestAvailBikesCell.appendChild(fillCell(stationsAvailReturn[i], stations));
-			closestAvailDocksCell.appendChild(fillCell(stationsAvailReturn[i], stations));
-			closestAvailEBikeCell.appendChild(fillCell(stationsWithEBike[i], stations));
-			closestFreeEBikeCell.appendChild(fillCell(stationsEBikeVoucher[i], stations));
+			if (i < stationsAvailReturn.length) {
+				var closestAvailBikesCell = row.insertCell(1);
+				closestAvailBikesCell.appendChild(fillCell(stationsAvailReturn[i], stations));
+			}
+
+			if (i < stationsAvailReturn.length) {
+				var closestAvailDocksCell = row.insertCell(2);
+				closestAvailDocksCell.appendChild(fillCell(stationsAvailReturn[i], stations));
+			}
+
+			if (i < stationsWithEBike.length) {
+				var closestAvailEBikeCell = row.insertCell(3);
+				closestAvailEBikeCell.appendChild(fillCell(stationsWithEBike[i], stations));
+			}
 			
+			if (i < stationsEBikeVoucher.length) {
+				var closestFreeEBikeCell  = row.insertCell(4);
+				closestFreeEBikeCell.appendChild(fillCell(stationsEBikeVoucher[i], stations));
+			}	
 		}
 	}
 
