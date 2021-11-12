@@ -205,12 +205,10 @@
 
 	function closestStationsAvailRent(orderByStation, stations) {
 		stationsAvailRent = JSON.parse(JSON.stringify(orderByStation));
-		console.log("check global stations: " + Object.keys(stations).length);
 		for (var i = orderByStation.length-1; i > 0; i--) {
 			var station_id = orderByStation[i];
-			console.log(station_id);
 			if ((stations[station_id].num_bikes_available == 0) && (stations[station_id].num_ebikes_available == 0)) {
-				console.log("Not Available for Rent: " + station_id)
+				console.log("Not Available for Rent: " + station_id);
 				stationsAvailRent.splice(i, 1);
 			}
 		}
@@ -223,7 +221,8 @@
 		for (var i = orderByStation.length-1; i > 0; i--) {
 			var station_id = orderByStation[i];
 			
-			if (stations[station_id].num_docks_available > 0) {
+			if (stations[station_id].num_docks_available == 0) {
+				console.log("Not Available for Return: " + station_id);
 				stationsAvailReturn.splice(i, 1);
 			}
 		}
@@ -236,7 +235,8 @@
 		for (var i = orderByStation.length-1; i > 0; i--) {
 			var station_id = orderByStation[i];
 			
-			if (stations[station_id].num_ebikes_available > 0) {
+			if (stations[station_id].num_ebikes_available == 0) {
+				console.log("Not Available for EBike Rental: " + station_id)
 				stationsEBike.splice(i, 1);
 			}
 		}
@@ -250,6 +250,7 @@
 			var station_id = orderByStation[i];
 			
 			if (stations[station_id].electric_bike_surcharge_waiver == false) {
+				console.log("No Free EBike Voucher: " + station_id)
 				stationsEBikeVoucher.splice(i, 1);
 			}
 		}
