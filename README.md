@@ -2,4 +2,7 @@
 
 Hello World!!!
 
-I am currently testing out my HTML/CSS skills since I never received formal training! Yay!
+This is my personal website, most of it is built from scratch.
+
+barrylee.technology/contacts.html is a page similar to LinkTree. NFC Business Cards are linked to this page.
+barrylee.technology/citibike.html is a web app that parses through live CitiBike data in NYC and NJ.
