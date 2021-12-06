@@ -7,8 +7,8 @@
 			<input type="hidden" id="lat">
 			<input type="hidden" id="lon">
 
-			<input type="button" value="Load Statistics" onclick="getLocation(); loadCitiBikeData();">
-			<input type="button" value="Where Am I?" onclick="getLocation(); window.open('https://www.google.com/maps/place/'+document.getElementById('lat').value+','+document.getElementById('lon').value, '_blank');">
+			<input type="button" class="button" value="Find Me A Bike" onclick="getLocation(); loadCitiBikeData();">
+			<input type="button" class="button" value="Where Am I?" onclick="getLocation(); window.open('https://www.google.com/maps/place/'+document.getElementById('lat').value+','+document.getElementById('lon').value, '_blank');">
 			<br>
 			<label for="recordLength"># of Results</label>
 			<input type="number" id="recordLength" value="5" pattern="^[0-9]*$" />
