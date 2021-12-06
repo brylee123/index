@@ -18,7 +18,7 @@
 	src: url(fonts/Proxima-Nova-Thin.ttf);
 }
 
-.header {
+.divheader {
 	text-align: center;
 	margin-top: 10px;
 	padding: 10px;
