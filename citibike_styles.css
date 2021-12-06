@@ -37,7 +37,7 @@
 .button {
 	font-family: ostrichsans-black;
 	font-size: 50px;
-	width: 75%;
+	width: 80%;
 	background-color: #3baeda;
 	border-radius:  40px;
 	color: white;
@@ -48,12 +48,13 @@
 	font-family: ostrichsans-black;
 	color: white;
 	letter-spacing: 1px;
+	width: 20%;
 }
 
 .cell {
 	padding: 15px;
 	float: none;
-	width: 25%;
+	width: 20%;
 
 	font-family: proxima-nova-thin;
 	font-size: 15px;
