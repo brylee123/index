@@ -1,0 +1,40 @@
+@font-face {
+	font-family: ostrich-regular;
+	src: url(fonts/ostrich-regular.ttf);
+}
+
+@font-face {
+	font-family: ostrichsans-black;
+	src: url(fonts/OstrichSans-Black.otf);
+}
+
+@font-face {
+	font-family: ostrichsans-bold;
+	src: url(fonts/OstrichSans-Bold.otf);
+}
+
+@font-face {
+	font-family: proxima-nova-thin;
+	src: url(fonts/Proxima-Nova-Thin.ttf);
+}
+
+.theader {
+	font-size: 35px;
+	font-family: ostrichsans-black;
+	color: white;
+	letter-spacing: 1px;
+}
+
+.cell {
+	padding: 15px;
+	float: none;
+	width: 25%;
+
+	font-family: proxima-nova-thin;
+	font-size: 15px;
+	background-color: #d9d9d9;
+	line-height: 1.5;
+
+	display: table-cell;
+	margin: auto;
+}
