@@ -1,16 +1,20 @@
-<input type="button" value="Get Location" onclick="getLocation()">
-<input type="button" value="Where Am I?" onclick="window.open('http://maps.google.com/?daddr='+document.getElementById('lat').value+','+document.getElementById('lon').value, '_blank');">
-<br>
-<input type="text" id="lat" value="Latitude">
-<input type="text" id="lon" value="Longitude">
-<br>
-<input type="button" value="Load Statistics" onclick="getLocation(); loadCitiBikeData()">
-<br>
-<label for="recordLength"># of Results</label>
-<input type="number" id="recordLength" value="5" pattern="^[0-9]*$" />
+    <head>
+        <link rel="stylesheet" href="citibike_styles.css">
+    </head>
 
-<table id="stationLists" style="width: 100%" border="1">
-</table>
+    <body>
+	<input type="hidden" id="lat">
+	<input type="hidden" id="lon">
+
+	<input type="button" value="Load Statistics" onclick="getLocation(); loadCitiBikeData();">
+	<input type="button" value="Where Am I?" onclick="getLocation(); window.open('https://www.google.com/maps/place/'+document.getElementById('lat').value+','+document.getElementById('lon').value, '_blank');">
+	<br>
+	<label for="recordLength"># of Results</label>
+	<input type="number" id="recordLength" value="5" pattern="^[0-9]*$" />
+
+	<table id="stationLists" style="width: 100%">
+	</table>
+</body>
 
 <script>
 	var clat, clon;
@@ -268,6 +272,8 @@
 		distancemi = (stations[station].distance_from_user*0.621371).toFixed(2)
 
 		var cell = document.createElement("cell");
+
+		cell.className = "cell";
 		//http://maps.google.com/?daddr=LAT,LON
 
 		var innerTempHTML = "<a href=\"http://maps.google.com/?daddr="+stations[station].lat+","+stations[station].lon+"\">"+stations[station].name+"</a>";
@@ -301,7 +307,7 @@
 		}
 
 		var table = document.getElementById("stationLists");
-		table.innerHTML = "<tr><th>Stations</th><th>Available Bikes</th><th>Available Docks</th><th>Available EBikes</th><th>Free E-Bike Waiver</th></tr>"; // Wipe Clear
+		table.innerHTML = "<th class='theader' style='background-color:#006a97;'>Stations</th><th class='theader' style='background-color:#0086b3;'>Available Bikes</th><th class='theader' style='background-color:#359ec6;'>vailable Docks</th><th class='theader' style='background-color:#3baeda;'>Available E-Bikes</th><th class='theader' style='background-color:#36c2f7;'>Free E-Bike Waiver</th>"; // Wipe Clear
 
 		for (var i = 0; i < l; i++) {
 			var row = table.insertRow(-1);
