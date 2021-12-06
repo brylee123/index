@@ -1,9 +1,30 @@
+
+@font-face {
+    font-family: ostrich-regular;
+    src: url(fonts/ostrich-regular.ttf);
+}
+
+@font-face {
+    font-family: ostrichsans-black;
+    src: url(fonts/OstrichSans-Black.otf);
+}
+
+@font-face {
+    font-family: ostrichsans-bold;
+    src: url(fonts/OstrichSans-Bold.otf);
+}
+
+@font-face {
+    font-family: proxima-nova-thin;
+    src: url(fonts/Proxima-Nova-Thin.ttf);
+}
+
 body {
     background: #d9d9d9;
     color: #000;
-    font-family: 'Open Sans', sans-serif;
-    font-size: 15px;
-    letter-spacing: 2px;
+    font-family: ostrich-regular;
+    font-size: 30px;
+    letter-spacing: 0px;
 }
 
 img {
@@ -14,13 +35,15 @@ img {
     display: block;
     margin-left: auto;
     margin-right: auto;
+    margin-top: 0%;
     height: auto;
     max-width: 100px;
   }
 
 .profile-name {
       text-align: center;
-      padding: 30px;
+      padding: 20px;
+      font-family: OstrichSans-Bold;
   }
 
 .links {
@@ -33,7 +56,8 @@ img {
       display: block;
       margin-left: auto;
       margin-right: auto;
-      border-radius: 40px;
+      border-radius: 20px;
+      font-size: 25px;
   }
 
 a {
@@ -54,6 +78,3 @@ a:hover {
     color: #ffffff;
     background: #006a97;
 }
-
-
-
