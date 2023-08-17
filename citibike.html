@@ -104,7 +104,6 @@
 			var stations = {};
 			var stationlist_info = JSON.parse(gbfsStationInfo).data.stations;
 			var stationlist_stat = JSON.parse(gbfsStationStatus).data.stations;
-			var stationlength = stationlist_info.length;
 
 			var userLat = document.getElementById('lat').value;
 			var userLon = document.getElementById('lon').value;
@@ -127,9 +126,7 @@
 			    
 			    stations[station_id].num_docks_disabled = stationlist_stat[i].num_docks_disabled;
 			    stations[station_id].valet = ("valet" in stationlist_stat[i]) ? true : false;
-			
-				console.log(stationlist_info[i].name);
-			    
+				
 			    //stations[station_id].electric_bike_surcharge_waiver = stationlist_info[i].electric_bike_surcharge_waiver; // Seems to be depreciated
 			    stations[station_id].electric_bike_surcharge_waiver = (((stationlist_stat[i].num_bikes_available == stationlist_stat[i].num_ebikes_available) && (stationlist_stat[i].num_ebikes_available > 0))) ? true : false;
 			    
@@ -179,20 +176,15 @@
 		var orderStations = {};
 		console.log("# Total Stations: "+Object.keys(stations).length);
 		Object.keys(stations).forEach(function(key) {
-			if (stations[key].station_status != "active") {
-				// don't include out of service stations
-				console.log("\tStation "+key+" status: "+stations[key].station_status);
-			} else { // Active
-				var slat = stations[key].lat;
-				var slon = stations[key].lon;
+			var slat = stations[key].lat;
+			var slon = stations[key].lon;
 
-				dkm = distanceToStation(slat, slon);
+			dkm = distanceToStation(slat, slon);
 
-				if (dkm in orderStations) {
-					orderStations[dkm] = orderStations[dkm].push(key);
-				} else {
-					orderStations[dkm] = [key];
-				}
+			if (dkm in orderStations) {
+				orderStations[dkm] = orderStations[dkm].push(key);
+			} else {
+				orderStations[dkm] = [key];
 			}
 		})
 		console.log("# Active Stations: "+ Object.keys(orderStations).length);
