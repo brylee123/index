@@ -109,32 +109,32 @@
 			var userLat = document.getElementById('lat').value;
 			var userLon = document.getElementById('lon').value;
 
-			for (var i = 0; i < stationlength; i++) {
-				var station_id = stationlist_info[i].station_id;
-
+			for (var i = 0; i < stationlist_info.length; i++) { 
+				let station_id = stationlist_info[i].station_id; 
 				stations[station_id] = {};
-
-				stations[station_id].name = stationlist_info[i].name;
-				stations[station_id].lat = stationlist_info[i].lat;
-				stations[station_id].lon = stationlist_info[i].lon;
-
-				stations[station_id].station_status = stationlist_stat[i].station_status;
-
+				
+			    stations[station_id].name = stationlist_info[i].name; 
+			    stations[station_id].lat = stationlist_info[i].lat;
+			    stations[station_id].lon = stationlist_info[i].lon; 
+			    stations[station_id].rental_url = stationlist_info[i].rental_uris.android;
+			}
+			for (var i = 0; i < stationlist_stat.length; i++) {
+				let station_id = stationlist_stat[i].station_id; 
 				stations[station_id].num_bikes_available = stationlist_stat[i].num_bikes_available;
-				stations[station_id].num_bikes_disabled	= stationlist_stat[i].num_bikes_disabled;
-				stations[station_id].num_ebikes_available = stationlist_stat[i].num_ebikes_available;
-				stations[station_id].num_docks_available = stationlist_stat[i].num_docks_available;
-				stations[station_id].num_docks_disabled = stationlist_stat[i].num_docks_disabled;
-
-				stations[station_id].valet = ("valet" in stationlist_stat[i]) ? true : false;
-
-				stations[station_id].electric_bike_surcharge_waiver = stationlist_info[i].electric_bike_surcharge_waiver; // Seems to be depreciated
-				stations[station_id].electric_bike_surcharge_waiver = (((stationlist_stat[i].num_bikes_available == stationlist_stat[i].num_ebikes_available) && (stationlist_stat[i].num_ebikes_available > 0))) ? true : false;
-
-				stations[station_id].last_reported = stationlist_stat[i].last_reported;
-				stations[station_id].distance_from_user = distanceToStation(stations[station_id].lat, stations[station_id].lon, userLat, userLon);
-
-				console.log(stations[station_id]);
+			    stations[station_id].num_bikes_disabled = stationlist_stat[i].num_bikes_disabled;
+			    stations[station_id].num_ebikes_available = stationlist_stat[i].num_ebikes_available;
+			    stations[station_id].num_docks_available = stationlist_stat[i].num_docks_available;
+			    
+			    stations[station_id].num_docks_disabled = stationlist_stat[i].num_docks_disabled;
+			    stations[station_id].valet = ("valet" in stationlist_stat[i]) ? true : false;
+			
+				console.log(stationlist_info[i].name);
+			    
+			    //stations[station_id].electric_bike_surcharge_waiver = stationlist_info[i].electric_bike_surcharge_waiver; // Seems to be depreciated
+			    stations[station_id].electric_bike_surcharge_waiver = (((stationlist_stat[i].num_bikes_available == stationlist_stat[i].num_ebikes_available) && (stationlist_stat[i].num_ebikes_available > 0))) ? true : false;
+			    
+			    stations[station_id].last_reported = stationlist_stat[i].last_reported;
+			    stations[station_id].distance_from_user = distanceToStation(stations[station_id].lat, stations[station_id].lon);
 			}
 
 			console.log("JSON Merge Complete "+Object.keys(stations).length);
