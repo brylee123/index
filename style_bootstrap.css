@@ -1,0 +1,83 @@
+@font-face {
+	font-family: ostrich-regular;
+	src: url(fonts/ostrich-regular.ttf);
+}
+
+@font-face {
+	font-family: ostrichsans-black;
+	src: url(fonts/OstrichSans-Black.otf);
+}
+
+@font-face {
+	font-family: ostrichsans-bold;
+	src: url(fonts/OstrichSans-Bold.otf);
+}
+
+@font-face {
+	font-family: proxima-nova-thin;
+	src: url(fonts/Proxima-Nova-Thin.ttf);
+}
+
+a:link {
+	color: gray;
+	text-decoration: none;
+}
+
+/* visited link */
+a:visited {
+	color: gray;
+	text-decoration: none;
+}
+
+/* mouse over link */
+a:hover {
+	color: blue;
+
+}
+
+.columnheader {
+	font-size: 50px;
+	font-family: ostrichsans-bold;
+	line-height: 1.2;
+}
+
+.column2 {
+	font-family: proxima-nova-thin;
+}
+
+.column4 {
+	font-family: proxima-nova-thin;
+}
+
+
+.header {
+	max-width: 100%;
+
+	position: relative;
+	z-index: 2;
+	color: #0085bd;
+
+	vertical-align: middle;
+
+}
+
+.container {
+	max-width: 100%;
+	margin 0 auto;
+	background: #d9d9d9;
+	font-size: 20px;
+	font-family: proxima-nova-thin;
+}
+
+.parallaxheader {
+	min-height: 500px;
+	background: transparent;
+	width: 100%; 
+}
+
+.parallax {
+	min-height: 400px;
+	background: transparent;
+	width: 100%; 
+	display: table;
+}
